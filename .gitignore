@@ -2,3 +2,6 @@
 *.str
 *.log
 *.wcfg
+elec3342_prj_tmpl.runs/
+elec3342_prj_tmpl.sim/
+elec3342_prj_tmpl.cache/
