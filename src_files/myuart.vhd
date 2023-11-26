@@ -1,163 +1,119 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity myuart is
-    Port (
-           din : in STD_LOGIC_VECTOR (7 downto 0);
-           busy: out STD_LOGIC;
-           wen : in STD_LOGIC;
-           sout : out STD_LOGIC;
-           clr : in STD_LOGIC;
-           clk : in STD_LOGIC;
-           state_wait : out std_logic;
-           state_sending : out std_logic;
-           state_idle : out std_logic
-           );
-end myuart;
+ENTITY myuart IS
+    PORT (
+        din : IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+        busy : OUT STD_LOGIC;
+        wen : IN STD_LOGIC;
+        sout : OUT STD_LOGIC;
+        clr : IN STD_LOGIC;
+        clk : IN STD_LOGIC
+    );
+END myuart;
 
-architecture rtl of myuart is
-    type state_type is (WAIT_FOR_DATA, SEND_START_BIT, SEND_DATA_BIT_0, SEND_DATA_BIT_1, SEND_DATA_BIT_2, SEND_DATA_BIT_3, SEND_DATA_BIT_4, SEND_DATA_BIT_5, SEND_DATA_BIT_6, SEND_DATA_BIT_7, SEND_STOP_BIT);
-    signal state, next_state : state_type := WAIT_FOR_DATA;
-    signal din_reg : STD_LOGIC_VECTOR (7 downto 0);
-    signal baud_counter: unsigned(3 downto 0) := (others => '0');   -- 9600/96kHz (1/10)
-begin
-    SYNC_PROC: process(clk)
-    begin
-        if clr = '1' then
-            state <= WAIT_FOR_DATA;
-        elsif rising_edge(clk) then
-            state <= next_state;
-        end if;
-    end process;
-    
-    NEXT_STATE_DECODE: process(clk, wen)
-    begin
-        case state is
-            when WAIT_FOR_DATA =>
-                if wen = '1' then
-                    next_state <= SEND_START_BIT;
-                    
-                end if;
-            when SEND_START_BIT =>
-                baud_counter <= baud_counter + 1;
-                if baud_counter = "1001" then
-                    next_state <= SEND_DATA_BIT_0;
-                    baud_counter <= (others => '0');
-                end if;
-            when SEND_DATA_BIT_0 =>
-                baud_counter <= baud_counter + 1;
-                if baud_counter = "1001" then
-                    next_state <= SEND_DATA_BIT_1;
-                    baud_counter <= (others => '0');
-                end if;
-            when SEND_DATA_BIT_1 =>
-                baud_counter <= baud_counter + 1;
-                if baud_counter = "1001" then
-                    next_state <= SEND_DATA_BIT_2;
-                    baud_counter <= (others => '0');
-                end if;
-            when SEND_DATA_BIT_2 =>
-                baud_counter <= baud_counter + 1;
-                if baud_counter = "1001" then
-                    next_state <= SEND_DATA_BIT_3;
-                    baud_counter <= (others => '0');
-                end if;
-            when SEND_DATA_BIT_3 =>
-                baud_counter <= baud_counter + 1;
-                if baud_counter = "1001" then
-                    next_state <= SEND_DATA_BIT_4;
-                    baud_counter <= (others => '0');
-                end if;
-            when SEND_DATA_BIT_4 =>
-                baud_counter <= baud_counter + 1;
-                if baud_counter = "1001" then
-                    next_state <= SEND_DATA_BIT_5;
-                    baud_counter <= (others => '0');
-                end if;
-            when SEND_DATA_BIT_5 =>
-                baud_counter <= baud_counter + 1;
-                if baud_counter = "1001" then
-                    next_state <= SEND_DATA_BIT_6;
-                    baud_counter <= (others => '0');
-                end if;
-            when SEND_DATA_BIT_6 =>
-                baud_counter <= baud_counter + 1;
-                if baud_counter = "1001" then
-                    next_state <= SEND_DATA_BIT_7;
-                    baud_counter <= (others => '0');
-                end if;
-            when SEND_DATA_BIT_7 =>
-                baud_counter <= baud_counter + 1;
-                if baud_counter = "1001" then
-                    next_state <= SEND_STOP_BIT;
-                    baud_counter <= (others => '0');
-                end if;
-            when SEND_STOP_BIT =>
-                baud_counter <= baud_counter + 1;
-                if baud_counter = "1001" then
-                    next_state <= WAIT_FOR_DATA;
-                    baud_counter <= (others => '0');
-                end if;
-            when others =>
-                next_state <= WAIT_FOR_DATA;
-            end case;
-    end process;
-    
-    OUTPUT_DECODE : process(state)
-    begin
-        case state is
-           when WAIT_FOR_DATA =>
-                busy <= '0';
-                sout <= '1';
-            when SEND_START_BIT =>
-                busy <= '1';
-                sout <= '0';
-            when SEND_DATA_BIT_0 =>
-                busy <= '1';
-                sout <= din_reg(0);
-            when SEND_DATA_BIT_1 =>
-                busy <= '1';
-                sout <= din_reg(1);
-            when SEND_DATA_BIT_2 =>
-                busy <= '1';
-                sout <= din_reg(2);
-            when SEND_DATA_BIT_3 =>
-                busy <= '1';
-                sout <= din_reg(3);
-            when SEND_DATA_BIT_4 =>
-                busy <= '1';
-                sout <= din_reg(4);
-            when SEND_DATA_BIT_5 =>
-                busy <= '1';
-                sout <= din_reg(5);
-            when SEND_DATA_BIT_6 =>
-                busy <= '1';
-                sout <= din_reg(6);
-            when SEND_DATA_BIT_7 =>
-                busy <= '1';
-                sout <= din_reg(7);
-            when SEND_STOP_BIT =>
-                busy <= '1';
-                sout <= '1';
-            when others =>
-                busy <= '0';
-                sout <= '1';
-            end case;
-    end process;
-    
-    DEBUG_PROC : process (state)
-        begin
-          state_wait <= '0';
-          state_sending <= '0';
-          state_idle <= '0';
-          case state is
-            when WAIT_FOR_DATA =>
-              state_wait <= '1';
-            when SEND_START_BIT | SEND_DATA_BIT_0 | SEND_DATA_BIT_1 | SEND_DATA_BIT_2 | SEND_DATA_BIT_3 | SEND_DATA_BIT_4 | SEND_DATA_BIT_5 | SEND_DATA_BIT_6 | SEND_DATA_BIT_7 | SEND_STOP_BIT =>
-              state_sending <= '1';
-            when others =>
-              null;
-          end case;
-        end process;
-end rtl;
+ARCHITECTURE Behavioral OF myuart IS
+
+    TYPE state_type IS (IDLE, START_BIT, DATA_BIT, STOP_BIT);
+    SIGNAL state : state_type := IDLE;
+
+    SIGNAL baud_en : STD_LOGIC := '0';
+
+    SIGNAL din_idx : INTEGER RANGE 0 TO 7 := 0;
+    SIGNAL din_idx_clr : STD_LOGIC := '1';
+    SIGNAL din_reg : STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');
+
+    SIGNAL start : STD_LOGIC := '0';
+    SIGNAL start_clr : STD_LOGIC := '0';
+
+BEGIN
+
+    BAUD_PROC : PROCESS (clk, clr)
+        VARIABLE baud_count : INTEGER RANGE 0 TO 9 := 0;
+    BEGIN
+        IF (clr = '1') THEN
+            baud_en <= '0';
+            baud_count := 0;
+        ELSIF rising_edge(clk) THEN
+            IF baud_count = 9 THEN
+                baud_en <= '1';
+                baud_count := 0;
+            ELSE
+                baud_en <= '0';
+                baud_count := baud_count + 1;
+            END IF;
+        END IF;
+    END PROCESS BAUD_PROC;
+
+    START_PROC : PROCESS (clk, clr)
+    BEGIN
+        IF (clr = '1') THEN
+            start <= '0';
+        ELSIF rising_edge(clk) THEN
+            IF (start_clr = '1') THEN
+                start <= '0';
+            ELSIF (wen = '1') AND (start = '0') THEN
+                start <= '1';
+                din_reg <= din;
+            END IF;
+        END IF;
+    END PROCESS START_PROC;
+
+    DIN_COUNTER : PROCESS (clk, clr)
+    BEGIN
+        IF (clr = '1') THEN
+            din_idx <= 0;
+        ELSIF rising_edge(clk) THEN
+            IF (din_idx_clr = '1') THEN
+                din_idx <= 0;
+            ELSIF (baud_en = '1') THEN
+                din_idx <= din_idx + 1;
+            END IF;
+        END IF;
+    END PROCESS DIN_COUNTER;
+
+    UART_FSM : PROCESS (clk, clr)
+    BEGIN
+        IF (clr = '1') THEN
+            state <= IDLE;
+            busy <= '0';
+            din_idx_clr <= '1';
+            start_clr <= '1';
+            sout <= '1';
+        ELSIF rising_edge(clk) THEN
+            IF (baud_en = '1') THEN
+                CASE state IS
+                    WHEN IDLE =>
+                        busy <= '0';
+                        din_idx_clr <= '1';
+                        start_clr <= '0';
+                        sout <= '1';
+                        IF (start = '1') THEN
+                            state <= START_BIT;
+                        END IF;
+                    WHEN START_BIT =>
+                        busy <= '1';
+                        din_idx_clr <= '0';
+                        sout <= '0';
+                        state <= DATA_BIT;
+                    WHEN DATA_BIT =>
+                        busy <= '1';
+                        sout <= din_reg(din_idx);
+                        IF (din_idx = 7) THEN
+                            din_idx_clr <= '1';
+                            state <= STOP_BIT;
+                        END IF;
+                    WHEN STOP_BIT =>
+                        busy <= '1';
+                        sout <= '1';
+                        start_clr <= '1';
+                        state <= IDLE;
+                    WHEN OTHERS =>
+                        state <= IDLE;
+                END CASE;
+            END IF;
+        END IF;
+    END PROCESS UART_FSM;
+
+END Behavioral;

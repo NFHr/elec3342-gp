@@ -1,24 +1,24 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
-entity mcdecoder is
-    port (
-        din     : IN std_logic_vector(2 downto 0);
-        valid   : IN std_logic;
-        clr     : IN std_logic;
-        clk     : IN std_logic;
-        dout    : OUT std_logic_vector(7 downto 0);
-        dvalid  : OUT std_logic;
-        error   : OUT std_logic;
-        state_err_debug : out std_logic;
-        state_wait_debug : out std_logic;
-        state_decode_debug : out std_logic;
-        state_fin_debug : out std_logic;
-        state_valid_debug : out std_logic
-        );
-end mcdecoder;
+ENTITY mcdecoder IS
+  PORT (
+    din : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+    valid : IN STD_LOGIC;
+    clr : IN STD_LOGIC;
+    clk : IN STD_LOGIC;
+    dout : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    dvalid : OUT STD_LOGIC;
+    error : OUT STD_LOGIC;
+    mcd_err : OUT STD_LOGIC;
+    mcd_wait : OUT STD_LOGIC;
+    mcd_decode : OUT STD_LOGIC;
+    mcd_fin : OUT STD_LOGIC;
+    mcd_valid : OUT STD_LOGIC
+  );
+END mcdecoder;
 
-architecture Behavioral of mcdecoder is
+ARCHITECTURE Behavioral OF mcdecoder IS
   TYPE state_type IS (St_ERROR, St_WAIT_BOS, St_DECODE, St_DECODE_FIN, St_VALID);
   SIGNAL next_state, state : state_type;
   SIGNAL din_reg : STD_LOGIC_VECTOR(11 DOWNTO 0) := (OTHERS => '0');
@@ -138,27 +138,26 @@ BEGIN
         dvalid <= '0';
     END CASE;
   END PROCESS;
-  
-  DEBUG_PROC : process (state)
-  begin
-    state_err_debug <= '0';
-    state_wait_debug <= '0';
-    state_decode_debug <= '0';
-    state_fin_debug <= '0';
-    state_valid_debug <= '0';
 
-    case state is
-        when St_ERROR =>
-            state_err_debug <= '1';
-        when St_WAIT_BOS =>
-            state_wait_debug <= '1';
-        when St_DECODE =>
-            state_decode_debug <= '1';
-        when St_DECODE_FIN =>
-            state_fin_debug <= '1';
-        when St_VALID =>
-            state_valid_debug <= '1';
-    end case;
-  end process;
-end Behavioral;
+  DEBUG_PROC : PROCESS (state)
+  BEGIN
+    mcd_err <= '0';
+    mcd_wait <= '0';
+    mcd_decode <= '0';
+    mcd_fin <= '0';
+    mcd_valid <= '0';
 
+    CASE state IS
+      WHEN St_ERROR =>
+        mcd_err <= '1';
+      WHEN St_WAIT_BOS =>
+        mcd_wait <= '1';
+      WHEN St_DECODE =>
+        mcd_decode <= '1';
+      WHEN St_DECODE_FIN =>
+        mcd_fin <= '1';
+      WHEN St_VALID =>
+        mcd_valid <= '1';
+    END CASE;
+  END PROCESS;
+END Behavioral;

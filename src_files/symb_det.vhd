@@ -10,8 +10,8 @@ ENTITY symb_det IS
         symbol_valid : OUT STD_LOGIC;
         symbol_out : OUT STD_LOGIC_VECTOR(2 DOWNTO 0); -- output 3-bit detection symbol
 
-        en_samping_debug : OUT STD_LOGIC; -- For debug only
-        sound_debug : out std_logic
+        det_sample : OUT STD_LOGIC;
+        det_sound : OUT STD_LOGIC
     );
 END symb_det;
 
@@ -23,16 +23,16 @@ ARCHITECTURE Behavioral OF symb_det IS
 
     SIGNAL freq_counter : INTEGER RANGE 0 TO CLOCK_FREQ := DELAY * ADC_FREQ;
     SIGNAL start_sampling : STD_LOGIC := '0';
-    SIGNAL sampling       : STD_LOGIC := '0';
-    SIGNAL data_cycle     : INTEGER;
-    SIGNAL sample_done    : STD_LOGIC := '0';
-    SIGNAL cnt            : INTEGER   := 0;
-    signal pre_data       : integer := 2047;
-    CONSTANT threshold: integer := 10;
-    signal n: integer := 8; -- block size for calculating average movement
+    SIGNAL sampling : STD_LOGIC := '0';
+    SIGNAL data_cycle : INTEGER;
+    SIGNAL sample_done : STD_LOGIC := '0';
+    SIGNAL cnt : INTEGER := 0;
+    SIGNAL pre_data : INTEGER := 2047;
+    CONSTANT threshold : INTEGER := 10;
+    SIGNAL n : INTEGER := 8; -- block size for calculating average movement
     -- signal sound: std_logic;
-    signal avg: INTEGER;
-    signal sum: INTEGER;
+    SIGNAL avg : INTEGER;
+    SIGNAL sum : INTEGER;
 BEGIN
 
     proc_enable_sampling : PROCESS (clk, clr)
@@ -58,13 +58,13 @@ BEGIN
     END PROCESS proc_enable_sampling;
 
     -- Step 1 Debugger by uncomment the following line  
-    en_samping_debug <= start_sampling; -- Debugging-- use symbol_valid as en_sampling 
-    
---     Average moving
---    process (clk, clr)
---    VARIABLE inp : INTEGER;
+    det_sample <= start_sampling; -- Debugging-- use symbol_valid as en_sampling 
+
+    --     Average moving
+    --    process (clk, clr)
+    --    VARIABLE inp : INTEGER;
     --begin
-     --   inp := to_integer(unsigned(adc_data));
+    --   inp := to_integer(unsigned(adc_data));
     --    if clr = '1' then -- reset
     --        sum <= 0;
     --        avg <= 0;
@@ -75,15 +75,15 @@ BEGIN
     --end process;
     -- Sound threshold
     --sound <= '1' when (abs(avg-2047)) > threshold else '0';
-    --sound_debug <= '1' when abs(avg) > threshold else '0';
-    sound_debug <= '0';
-    
-    zero_crossing_detection : PROCESS(start_sampling, clk)
-    --ZCD: detect the adc reaches 2047 with the same direction
+    --det_sound <= '1' when abs(avg) > threshold else '0';
+    det_sound <= '0';
+
+    zero_crossing_detection : PROCESS (start_sampling, clk)
+        --ZCD: detect the adc reaches 2047 with the same direction
         VARIABLE ref : INTEGER := 2047; --unchanged
         VARIABLE cycle : INTEGER;
         VARIABLE data : INTEGER;
-        VARIABLE cycle1 :INTEGER;
+        VARIABLE cycle1 : INTEGER;
         VARIABLE valid_delay : INTEGER := 0;
     BEGIN
         IF start_sampling = '1' THEN
@@ -95,22 +95,22 @@ BEGIN
         ELSIF sampling = '1' THEN -- and sound = '1'
             IF rising_edge(clk) THEN
                 data := to_integer(signed(adc_data));
-                IF (data * pre_data) <= 0 and (cycle - cycle1) > 15 THEN
---                    IF (ref - data) <= 125 THEN
-                        IF cnt = 0 THEN
-                            cycle := 0;
-                            cnt <= cnt + 1;
-                            cycle1 := cycle;
-                        ELSIF cnt = 2 THEN 
-                            data_cycle <= cycle;
-                            sampling <= '0';
-                            sample_done <= '1';
-                            valid_delay := 0;
-                        ELSE
-                            cnt <= cnt + 1;
-                            cycle1 := cycle;
-                        END IF;
---                    END IF;
+                IF (data * pre_data) <= 0 AND (cycle - cycle1) > 15 THEN
+                    --                    IF (ref - data) <= 125 THEN
+                    IF cnt = 0 THEN
+                        cycle := 0;
+                        cnt <= cnt + 1;
+                        cycle1 := cycle;
+                    ELSIF cnt = 2 THEN
+                        data_cycle <= cycle;
+                        sampling <= '0';
+                        sample_done <= '1';
+                        valid_delay := 0;
+                    ELSE
+                        cnt <= cnt + 1;
+                        cycle1 := cycle;
+                    END IF;
+                    --                    END IF;
                 ELSE
                     IF valid_delay >= 2 THEN
                         sample_done <= '0';
@@ -127,19 +127,19 @@ BEGIN
             valid_delay := valid_delay + 1;
         END IF;
     END PROCESS;
-    
+
     -- Step 2 Debugger by uncomment the following 2 out of 3 lines
---    symbol_valid <= sample_done;
---    symbol_out <= '0' & '0' & start_sampling;
---    symbol_out <= std_logic_vector(to_unsigned(cnt, 3)); -- Debugging : show when output is avaliable
---symbol_valid <= sample_done;
-    output_logic : PROCESS(data_cycle, sample_done)
+    --    symbol_valid <= sample_done;
+    --    symbol_out <= '0' & '0' & start_sampling;
+    --    symbol_out <= std_logic_vector(to_unsigned(cnt, 3)); -- Debugging : show when output is avaliable
+    --symbol_valid <= sample_done;
+    output_logic : PROCESS (data_cycle, sample_done)
     BEGIN
         IF sample_done = '1' THEN
             symbol_valid <= sample_done;
             IF data_cycle >= 180 THEN -- 7
                 symbol_out <= "111";
-            ELSIF data_cycle                                                                                                                                                         >= 142 THEN -- 6
+            ELSIF data_cycle >= 142 THEN -- 6
                 symbol_out <= "110";
             ELSIF data_cycle >= 119 THEN -- 5
                 symbol_out <= "101";
@@ -156,5 +156,5 @@ BEGIN
             END IF;
         END IF;
     END PROCESS;
-    
+
 END Behavioral;
