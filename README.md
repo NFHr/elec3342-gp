@@ -11,34 +11,36 @@ git remote add -t * -f origin https://github.com/NFHr/elec3342-gp.git
 git checkout --force main
 ```
 
+* Noted that ```git checkout --force main``` will overwrite all your local changes.
+
 ## Milestones
 
-- [x] Milestone 1: Full Music Code decoder simulation
-- [ ] Milestone 2
-  - [ ] mcdecoder
-  - [ ] myuart
-  - [ ] symb_dect
-- [ ] Milestone 3
-  - [ ] to be determined
+* [x] Milestone 1: Full Music Code decoder simulation
+* [ ] Milestone 2
+  * [ ] mcdecoder
+  * [ ] myuart
+  * [ ] symb_dect
+* [ ] Milestone 3
+  * [ ] to be determined
 
 ## Group Roles
 
 You may add your contributions as you wish.
 
-#### Original Components
+### Original Components
 
-- mcdecoder.vhd – Guo Hao, Long Liangmao
-- myuart.vhd – Guo Hao, refactored by Long Liangmao
-- symb_dect.vhd – Long Liangmao, Guo Bao
+* mcdecoder.vhd – Guo Hao, Long Liangmao
+* myuart.vhd – Guo Hao, refactored by Long Liangmao
+* symb_dect.vhd – Long Liangmao, Guo Bao
 
-#### Milestone 1
+### Milestone 1
 
-- mainly -- Guo Bao
+* mainly -- Guo Bao
 
-#### Milestone 2
+### Milestone 2
 
-- mainly -- everyone
+* mainly -- everyone
 
-#### Milestone 3
+### Milestone 3
 
-- to be determined
+* to be determined
