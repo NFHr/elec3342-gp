@@ -1,0 +1,10 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../src_files/mcdecoder.vhd" \
+"../../../../src_files/myuart.vhd" \
+"../../../../src_files/sim_top.vhd" \
+"../../../../src_files/symb_det.vhd" \
+"../../../../tb/sim_top_tb.vhd" \
+
+# Do not sort compile order
+nosort

@@ -1,0 +1,696 @@
+#-----------------------------------------------------------
+# Vivado v2019.2 (64-bit)
+# SW Build 2708876 on Wed Nov  6 21:39:14 MST 2019
+# IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+# Start of session at: Sun Nov 26 19:23:57 2023
+# Process ID: 30693
+# Current directory: /media/sf_ELEC3342/HW4/elec3342_prj_tmpl.runs/synth_1
+# Command line: vivado -log sys_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source sys_top.tcl
+# Log file: /media/sf_ELEC3342/HW4/elec3342_prj_tmpl.runs/synth_1/sys_top.vds
+# Journal file: /media/sf_ELEC3342/HW4/elec3342_prj_tmpl.runs/synth_1/vivado.jou
+#-----------------------------------------------------------
+source sys_top.tcl -notrace
+Command: synth_design -top sys_top -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 30709 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1813.125 ; gain = 202.719 ; free physical = 2027 ; free virtual = 3539
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'sys_top' [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:51]
+INFO: [Synth 8-3491] module 'clk_wiz_0' declared at '/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.v:70' bound to instance 'clk_wiz_inst' of component 'clk_wiz_0' [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:140]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.v:70]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0_clk_wiz' [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v:68]
+INFO: [Synth 8-6157] synthesizing module 'IBUF' [/tools/Xilinx/Vivado/2019.2/scripts/rt/data/unisim_comp.v:32937]
+	Parameter CAPACITANCE bound to: DONT_CARE - type: string 
+	Parameter IBUF_DELAY_VALUE bound to: 0 - type: string 
+	Parameter IBUF_LOW_PWR bound to: TRUE - type: string 
+	Parameter IFD_DELAY_VALUE bound to: AUTO - type: string 
+	Parameter IOSTANDARD bound to: DEFAULT - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'IBUF' (1#1) [/tools/Xilinx/Vivado/2019.2/scripts/rt/data/unisim_comp.v:32937]
+INFO: [Synth 8-6157] synthesizing module 'MMCME2_ADV' [/tools/Xilinx/Vivado/2019.2/scripts/rt/data/unisim_comp.v:39940]
+	Parameter BANDWIDTH bound to: OPTIMIZED - type: string 
+	Parameter CLKFBOUT_MULT_F bound to: 48.000000 - type: double 
+	Parameter CLKFBOUT_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKFBOUT_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKIN1_PERIOD bound to: 10.000000 - type: double 
+	Parameter CLKIN2_PERIOD bound to: 0.000000 - type: double 
+	Parameter CLKOUT0_DIVIDE_F bound to: 78.125000 - type: double 
+	Parameter CLKOUT0_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT0_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT0_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT1_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT1_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT1_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT1_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT2_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT2_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT2_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT2_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT3_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT3_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT3_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT3_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT4_CASCADE bound to: FALSE - type: string 
+	Parameter CLKOUT4_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT4_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT4_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT4_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT5_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT5_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT5_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT5_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT6_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT6_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT6_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT6_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter COMPENSATION bound to: ZHOLD - type: string 
+	Parameter DIVCLK_DIVIDE bound to: 5 - type: integer 
+	Parameter IS_CLKINSEL_INVERTED bound to: 1'b0 
+	Parameter IS_PSEN_INVERTED bound to: 1'b0 
+	Parameter IS_PSINCDEC_INVERTED bound to: 1'b0 
+	Parameter IS_PWRDWN_INVERTED bound to: 1'b0 
+	Parameter IS_RST_INVERTED bound to: 1'b0 
+	Parameter REF_JITTER1 bound to: 0.010000 - type: double 
+	Parameter REF_JITTER2 bound to: 0.010000 - type: double 
+	Parameter SS_EN bound to: FALSE - type: string 
+	Parameter SS_MODE bound to: CENTER_HIGH - type: string 
+	Parameter SS_MOD_PERIOD bound to: 10000 - type: integer 
+	Parameter STARTUP_WAIT bound to: FALSE - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'MMCME2_ADV' (2#1) [/tools/Xilinx/Vivado/2019.2/scripts/rt/data/unisim_comp.v:39940]
+INFO: [Synth 8-6157] synthesizing module 'BUFG' [/tools/Xilinx/Vivado/2019.2/scripts/rt/data/unisim_comp.v:1075]
+INFO: [Synth 8-6155] done synthesizing module 'BUFG' (3#1) [/tools/Xilinx/Vivado/2019.2/scripts/rt/data/unisim_comp.v:1075]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0_clk_wiz' (4#1) [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v:68]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (5#1) [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.v:70]
+INFO: [Synth 8-3491] module 'clk_div' declared at '/media/sf_ELEC3342/HW4/src_files/clk_div.vhd:36' bound to instance 'clk_div_128_inst' of component 'clk_div' [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:152]
+INFO: [Synth 8-638] synthesizing module 'clk_div' [/media/sf_ELEC3342/HW4/src_files/clk_div.vhd:42]
+INFO: [Synth 8-256] done synthesizing module 'clk_div' (6#1) [/media/sf_ELEC3342/HW4/src_files/clk_div.vhd:42]
+INFO: [Synth 8-3491] module 'adccntrl' declared at '/media/sf_ELEC3342/HW4/src_files/adccntrl.vhd:36' bound to instance 'adc_ctrl_inst' of component 'adccntrl' [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:159]
+INFO: [Synth 8-638] synthesizing module 'adccntrl' [/media/sf_ELEC3342/HW4/src_files/adccntrl.vhd:45]
+INFO: [Synth 8-226] default block is never used [/media/sf_ELEC3342/HW4/src_files/adccntrl.vhd:98]
+INFO: [Synth 8-256] done synthesizing module 'adccntrl' (7#1) [/media/sf_ELEC3342/HW4/src_files/adccntrl.vhd:45]
+INFO: [Synth 8-3491] module 'symb_det' declared at '/media/sf_ELEC3342/HW4/src_files/symb_det.vhd:5' bound to instance 'symb_det_inst' of component 'symb_det' [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:168]
+INFO: [Synth 8-638] synthesizing module 'symb_det' [/media/sf_ELEC3342/HW4/src_files/symb_det.vhd:18]
+WARNING: [Synth 8-614] signal 'sampling' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/symb_det.vhd:80]
+WARNING: [Synth 8-6014] Unused sequential element data_reg was removed.  [/media/sf_ELEC3342/HW4/src_files/symb_det.vhd:95]
+INFO: [Synth 8-256] done synthesizing module 'symb_det' (8#1) [/media/sf_ELEC3342/HW4/src_files/symb_det.vhd:18]
+INFO: [Synth 8-3491] module 'mcdecoder' declared at '/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:4' bound to instance 'mcdecoder_inst' of component 'mcdecoder' [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:178]
+INFO: [Synth 8-638] synthesizing module 'mcdecoder' [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:21]
+WARNING: [Synth 8-614] signal 'dout_cnt' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:38]
+WARNING: [Synth 8-614] signal 'din' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:112]
+WARNING: [Synth 8-614] signal 'state' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:112]
+WARNING: [Synth 8-614] signal 'dout_reg' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:126]
+INFO: [Synth 8-256] done synthesizing module 'mcdecoder' (9#1) [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:21]
+INFO: [Synth 8-3491] module 'myuart' declared at '/media/sf_ELEC3342/HW4/src_files/myuart.vhd:5' bound to instance 'myuart_inst' of component 'myuart' [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:195]
+INFO: [Synth 8-638] synthesizing module 'myuart' [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:19]
+WARNING: [Synth 8-614] signal 'prev_state' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:25]
+WARNING: [Synth 8-614] signal 'state' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:25]
+WARNING: [Synth 8-614] signal 'din' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:25]
+WARNING: [Synth 8-614] signal 'baud_counter' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:25]
+WARNING: [Synth 8-614] signal 'input' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:25]
+INFO: [Synth 8-256] done synthesizing module 'myuart' (10#1) [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:19]
+WARNING: [Synth 8-614] signal 'led_valid_debug' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'led_dvalid_debug' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'led_debug' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'state_err_debug' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'state_wait_debug' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'state_decode_debug' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'state_fin_debug' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'state_valid_debug' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'state_wait' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'state_sending' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'state_idle' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'en_samping_debug' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'sound_debug' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+WARNING: [Synth 8-614] signal 'adc_data' is read in the process but is not in the sensitivity list [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:211]
+INFO: [Synth 8-256] done synthesizing module 'sys_top' (11#1) [/media/sf_ELEC3342/HW4/src_files/sys_top.vhd:51]
+WARNING: [Synth 8-3917] design sys_top has port an[3] driven by constant 0
+WARNING: [Synth 8-3917] design sys_top has port an[2] driven by constant 0
+WARNING: [Synth 8-3917] design sys_top has port an[1] driven by constant 0
+WARNING: [Synth 8-3917] design sys_top has port an[0] driven by constant 1
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1875.875 ; gain = 265.469 ; free physical = 2054 ; free virtual = 3565
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1875.875 ; gain = 265.469 ; free physical = 2054 ; free virtual = 3566
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1875.875 ; gain = 265.469 ; free physical = 2054 ; free virtual = 3566
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 1881.812 ; gain = 0.000 ; free physical = 2043 ; free virtual = 3555
+INFO: [Netlist 29-17] Analyzing 1 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc] for cell 'clk_wiz_inst/inst'
+Finished Parsing XDC File [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc] for cell 'clk_wiz_inst/inst'
+Parsing XDC File [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc] for cell 'clk_wiz_inst/inst'
+Finished Parsing XDC File [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc] for cell 'clk_wiz_inst/inst'
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/sys_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/sys_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+INFO: [Timing 38-2] Deriving generated clocks
+Parsing XDC File [/media/sf_ELEC3342/HW4/xdc/musicdec.xdc]
+Finished Parsing XDC File [/media/sf_ELEC3342/HW4/xdc/musicdec.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/media/sf_ELEC3342/HW4/xdc/musicdec.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/sys_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/sys_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.runs/synth_1/dont_touch.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.runs/synth_1/dont_touch.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/sys_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/sys_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+INFO: [Timing 38-2] Deriving generated clocks
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2006.641 ; gain = 0.000 ; free physical = 1967 ; free virtual = 3479
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2006.641 ; gain = 0.000 ; free physical = 1967 ; free virtual = 3479
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 2028 ; free virtual = 3540
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 2028 ; free virtual = 3540
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property DONT_TOUCH = true for clk_wiz_inst/inst. (constraint file  /media/sf_ELEC3342/HW4/elec3342_prj_tmpl.runs/synth_1/dont_touch.xdc, line 10).
+Applied set_property DONT_TOUCH = true for clk_wiz_inst. (constraint file  auto generated constraint, line ).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 2028 ; free virtual = 3540
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'adccntrl'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'mcdecoder'
+INFO: [Synth 8-5546] ROM "dout_reg" won't be mapped to RAM because it is too sparse
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                   sidle |                             0001 |                               00
+                    sz3h |                             0010 |                               01
+                     sxl |                             0100 |                               10
+                     sxh |                             1000 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'adccntrl'
+WARNING: [Synth 8-327] inferring latch for variable 'symbol_valid_reg' [/media/sf_ELEC3342/HW4/src_files/symb_det.vhd:136]
+WARNING: [Synth 8-327] inferring latch for variable 'symbol_out_reg' [/media/sf_ELEC3342/HW4/src_files/symb_det.vhd:138]
+WARNING: [Synth 8-327] inferring latch for variable 'FSM_sequential_next_state_reg' [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:34]
+WARNING: [Synth 8-327] inferring latch for variable 'FSM_onehot_next_state_reg' [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:34]
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+             st_wait_bos |                            00001 |                              001
+               st_decode |                            00010 |                              010
+           st_decode_fin |                            00100 |                              011
+                st_valid |                            01000 |                              100
+                st_error |                            10000 |                              000
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'mcdecoder'
+WARNING: [Synth 8-327] inferring latch for variable 'FSM_onehot_next_state_reg' [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:34]
+WARNING: [Synth 8-327] inferring latch for variable 'dout_reg' [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:133]
+WARNING: [Synth 8-327] inferring latch for variable 'din_reg_reg' [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:115]
+WARNING: [Synth 8-327] inferring latch for variable 'dout_cnt_reg' [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:117]
+WARNING: [Synth 8-327] inferring latch for variable 'eos_flag_reg' [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:96]
+WARNING: [Synth 8-327] inferring latch for variable 'dout_reg_reg' [/media/sf_ELEC3342/HW4/src_files/mcdecoder.vhd:59]
+WARNING: [Synth 8-327] inferring latch for variable 'busy_reg' [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:28]
+WARNING: [Synth 8-327] inferring latch for variable 'sout_reg' [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:29]
+WARNING: [Synth 8-327] inferring latch for variable 'state_reg' [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:30]
+WARNING: [Synth 8-327] inferring latch for variable 'prev_state_reg' [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:31]
+WARNING: [Synth 8-327] inferring latch for variable 'input_reg' [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:32]
+WARNING: [Synth 8-327] inferring latch for variable 'baud_counter_reg' [/media/sf_ELEC3342/HW4/src_files/myuart.vhd:33]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 2014 ; free virtual = 3525
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     32 Bit       Adders := 1     
+	   2 Input     32 Bit       Adders := 2     
+	   2 Input     17 Bit       Adders := 1     
+	   2 Input     13 Bit       Adders := 2     
+	   2 Input      7 Bit       Adders := 2     
+	   2 Input      4 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 3     
+	               17 Bit    Registers := 1     
+	               12 Bit    Registers := 2     
+	                7 Bit    Registers := 2     
+	                1 Bit    Registers := 4     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 8     
+	   3 Input     32 Bit        Muxes := 1     
+	   2 Input     17 Bit        Muxes := 1     
+	   2 Input     13 Bit        Muxes := 1     
+	  31 Input      8 Bit        Muxes := 1     
+	   8 Input      7 Bit        Muxes := 1     
+	   5 Input      5 Bit        Muxes := 1     
+	  31 Input      5 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 2     
+	   4 Input      4 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 4     
+	  10 Input      4 Bit        Muxes := 1     
+	   8 Input      3 Bit        Muxes := 1     
+	   5 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 20    
+	   4 Input      1 Bit        Muxes := 4     
+	   8 Input      1 Bit        Muxes := 1     
+	  33 Input      1 Bit        Muxes := 1     
+	  32 Input      1 Bit        Muxes := 1     
+	   5 Input      1 Bit        Muxes := 4     
+	  10 Input      1 Bit        Muxes := 2     
+	  11 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module sys_top 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     13 Bit        Muxes := 1     
+	   8 Input      7 Bit        Muxes := 1     
+Module clk_div 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      7 Bit       Adders := 1     
++---Registers : 
+	                7 Bit    Registers := 1     
+Module adccntrl 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      7 Bit       Adders := 1     
++---Registers : 
+	               12 Bit    Registers := 2     
+	                7 Bit    Registers := 1     
++---Muxes : 
+	   4 Input      4 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 3     
+	   4 Input      1 Bit        Muxes := 1     
+Module symb_det 
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     32 Bit       Adders := 1     
+	   2 Input     32 Bit       Adders := 2     
+	   2 Input     17 Bit       Adders := 1     
+	   2 Input     13 Bit       Adders := 2     
++---Registers : 
+	               32 Bit    Registers := 3     
+	               17 Bit    Registers := 1     
+	                1 Bit    Registers := 4     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 8     
+	   3 Input     32 Bit        Muxes := 1     
+	   2 Input     17 Bit        Muxes := 1     
+	   8 Input      3 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 2     
+	   8 Input      1 Bit        Muxes := 1     
+Module mcdecoder 
+Detailed RTL Component Info : 
++---Muxes : 
+	  31 Input      8 Bit        Muxes := 1     
+	   5 Input      5 Bit        Muxes := 1     
+	  31 Input      5 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 2     
+	   5 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	  33 Input      1 Bit        Muxes := 1     
+	  32 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 9     
+	   5 Input      1 Bit        Muxes := 4     
+Module myuart 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      4 Bit       Adders := 1     
++---Muxes : 
+	  10 Input      4 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 3     
+	   4 Input      1 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 6     
+	  10 Input      1 Bit        Muxes := 2     
+	  11 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+WARNING: [Synth 8-3917] design sys_top has port led[0] driven by constant 0
+WARNING: [Synth 8-3917] design sys_top has port an[3] driven by constant 0
+WARNING: [Synth 8-3917] design sys_top has port an[2] driven by constant 0
+WARNING: [Synth 8-3917] design sys_top has port an[1] driven by constant 0
+WARNING: [Synth 8-3917] design sys_top has port an[0] driven by constant 1
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\mcdecoder_inst/dout_reg_reg[7] )
+INFO: [Synth 8-3886] merging instance 'mcdecoder_inst/din_reg_reg[9]' (LD) to 'mcdecoder_inst/din_reg_reg[6]'
+INFO: [Synth 8-3886] merging instance 'mcdecoder_inst/din_reg_reg[10]' (LD) to 'mcdecoder_inst/din_reg_reg[7]'
+INFO: [Synth 8-3886] merging instance 'mcdecoder_inst/din_reg_reg[11]' (LD) to 'mcdecoder_inst/din_reg_reg[8]'
+INFO: [Synth 8-3886] merging instance 'mcdecoder_inst/din_reg_reg[5]' (LD) to 'mcdecoder_inst/din_reg_reg[8]'
+INFO: [Synth 8-3886] merging instance 'mcdecoder_inst/din_reg_reg[2]' (LD) to 'mcdecoder_inst/din_reg_reg[8]'
+INFO: [Synth 8-3886] merging instance 'mcdecoder_inst/din_reg_reg[4]' (LD) to 'mcdecoder_inst/din_reg_reg[7]'
+INFO: [Synth 8-3886] merging instance 'mcdecoder_inst/din_reg_reg[1]' (LD) to 'mcdecoder_inst/din_reg_reg[7]'
+INFO: [Synth 8-3886] merging instance 'mcdecoder_inst/din_reg_reg[3]' (LD) to 'mcdecoder_inst/din_reg_reg[6]'
+INFO: [Synth 8-3886] merging instance 'mcdecoder_inst/din_reg_reg[0]' (LD) to 'mcdecoder_inst/din_reg_reg[6]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\mcdecoder_inst/dout_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\myuart_inst/input_reg[7] )
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg[7]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/din_reg_reg[8]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/din_reg_reg[7]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/din_reg_reg[6]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg_reg[7]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (myuart_inst/input_reg[7]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[0]  is always disabled
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\mcdecoder_inst/FSM_onehot_next_state_reg[3] )
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \mcdecoder_inst/dout_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[6]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \myuart_inst/input_reg[0]  is always disabled
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/FSM_onehot_state_reg[3]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/FSM_onehot_next_state_reg[3]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/eos_flag_reg) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (myuart_inst/prev_state_reg[3]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (myuart_inst/prev_state_reg[2]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (myuart_inst/prev_state_reg[1]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (myuart_inst/prev_state_reg[0]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg[6]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg[5]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg[4]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg[3]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg[2]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg[1]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg[0]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg_reg[6]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg_reg[5]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg_reg[4]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg_reg[3]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg_reg[2]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg_reg[1]) is unused and will be removed from module sys_top.
+WARNING: [Synth 8-3332] Sequential element (mcdecoder_inst/dout_reg_reg[0]) is unused and will be removed from module sys_top.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:13 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 1990 ; free virtual = 3502
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 1884 ; free virtual = 3396
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 1868 ; free virtual = 3380
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:12 ; elapsed = 00:00:19 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 1866 ; free virtual = 3378
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:14 ; elapsed = 00:00:21 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 1866 ; free virtual = 3378
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:14 ; elapsed = 00:00:21 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 1866 ; free virtual = 3378
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:14 ; elapsed = 00:00:21 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 1866 ; free virtual = 3378
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:14 ; elapsed = 00:00:21 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 1866 ; free virtual = 3378
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:14 ; elapsed = 00:00:21 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 1866 ; free virtual = 3378
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:14 ; elapsed = 00:00:21 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 1866 ; free virtual = 3378
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-----------+------+
+|      |Cell       |Count |
++------+-----------+------+
+|1     |BUFG       |     3|
+|2     |CARRY4     |    91|
+|3     |LUT1       |    26|
+|4     |LUT2       |   383|
+|5     |LUT3       |   115|
+|6     |LUT4       |    55|
+|7     |LUT5       |    48|
+|8     |LUT6       |    49|
+|9     |MMCME2_ADV |     1|
+|10    |FDCE       |   170|
+|11    |FDPE       |    37|
+|12    |FDRE       |    52|
+|13    |LD         |     7|
+|14    |LDC        |    42|
+|15    |LDCP       |     1|
+|16    |LDP        |     1|
+|17    |IBUF       |     4|
+|18    |OBUF       |    28|
++------+-----------+------+
+
+Report Instance Areas: 
++------+-------------------+------------------+------+
+|      |Instance           |Module            |Cells |
++------+-------------------+------------------+------+
+|1     |top                |                  |  1113|
+|2     |  clk_wiz_inst     |clk_wiz_0         |     4|
+|3     |    inst           |clk_wiz_0_clk_wiz |     4|
+|4     |  adc_ctrl_inst    |adccntrl          |    75|
+|5     |  clk_div_128_inst |clk_div           |    15|
+|6     |  mcdecoder_inst   |mcdecoder         |    15|
+|7     |  myuart_inst      |myuart            |    26|
+|8     |  symb_det_inst    |symb_det          |   946|
++------+-------------------+------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:14 ; elapsed = 00:00:21 . Memory (MB): peak = 2006.641 ; gain = 396.234 ; free physical = 1866 ; free virtual = 3378
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 146 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:13 ; elapsed = 00:00:19 . Memory (MB): peak = 2006.641 ; gain = 265.469 ; free physical = 1923 ; free virtual = 3435
+Synthesis Optimization Complete : Time (s): cpu = 00:00:14 ; elapsed = 00:00:21 . Memory (MB): peak = 2006.648 ; gain = 396.234 ; free physical = 1923 ; free virtual = 3435
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2006.648 ; gain = 0.000 ; free physical = 1997 ; free virtual = 3509
+INFO: [Netlist 29-17] Analyzing 143 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2006.648 ; gain = 0.000 ; free physical = 1942 ; free virtual = 3454
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 51 instances were transformed.
+  LD => LDCE: 7 instances
+  LDC => LDCE: 42 instances
+  LDCP => LDCP (GND, LDCE, LUT3(x2), VCC): 1 instance 
+  LDP => LDPE: 1 instance 
+
+INFO: [Common 17-83] Releasing license: Synthesis
+65 Infos, 175 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:19 ; elapsed = 00:00:24 . Memory (MB): peak = 2006.648 ; gain = 508.711 ; free physical = 2070 ; free virtual = 3581
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2006.648 ; gain = 0.000 ; free physical = 2070 ; free virtual = 3581
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint '/media/sf_ELEC3342/HW4/elec3342_prj_tmpl.runs/synth_1/sys_top.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file sys_top_utilization_synth.rpt -pb sys_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sun Nov 26 19:24:28 2023...
