@@ -96,7 +96,7 @@ ARCHITECTURE Behavioral OF sim_top IS
 
 BEGIN
 
-        symb_det_inst : symb_det PORT MAP(
+        symb_det_inst : symb_det_stub PORT MAP(
                 clk => clk,
                 clr => clr,
                 adc_data => adc_data,

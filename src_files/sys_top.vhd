@@ -139,7 +139,7 @@ BEGIN
                 clr => clr
         );
 
-        symb_det_inst : symb_det_stub PORT MAP(
+        symb_det_inst : symb_det PORT MAP(
                 clk => clk,
                 clr => clr,
                 adc_data => adc_data,

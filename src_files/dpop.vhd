@@ -72,6 +72,7 @@ BEGIN
             rd_en <= '1';
             uart_wen <= '1';
         ELSE
+            uart_dout <= (others => '0');
             rd_en <= '0';
             uart_wen <= '0';
         END IF;
