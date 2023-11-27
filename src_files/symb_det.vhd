@@ -37,6 +37,7 @@ BEGIN
     BEGIN
         IF clr = '1' THEN
             freq_counter <= DELAY * ADC_FREQ;
+            start_sampling <= '0';
             idle := '1';
         ELSIF rising_edge(clk) THEN
             IF idle = '1' AND adc_data /= 0 THEN
@@ -54,7 +55,7 @@ BEGIN
         END IF;
     END PROCESS proc_enable_sampling;
 
-    det_sample <= start_sampling; -- Debugging-- use symbol_valid as en_sampling 
+    det_sample <= start_sampling;
 
     zero_crossing_detection : PROCESS (start_sampling, clk)
         --ZCD: detect the adc reaches 2047 with the same direction
@@ -98,9 +99,9 @@ BEGIN
         END IF;
     END PROCESS;
 
-    symbol_valid <= sample_done;
-    output_logic : PROCESS (data_cycle, sample_done)
+    output_logic : PROCESS (sample_done)
     BEGIN
+        symbol_valid <= sample_done;
         IF sample_done = '1' THEN
             IF data_cycle >= 175 THEN -- 7 -- 183
                 symbol_out <= "111";
