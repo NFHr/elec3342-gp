@@ -70,8 +70,8 @@ ARCHITECTURE Behavioral OF sim_top IS
                         clr : IN STD_LOGIC;
                         clk : IN STD_LOGIC);
         END COMPONENT myuart;
-        
-                COMPONENT dpop IS
+
+        COMPONENT dpop IS
                 PORT (
                         mcd_din : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
                         mcd_wen : IN STD_LOGIC;
@@ -83,17 +83,17 @@ ARCHITECTURE Behavioral OF sim_top IS
                         clk : IN STD_LOGIC;
                         clr : IN STD_LOGIC);
         END COMPONENT dpop;
-        
+
         SIGNAL symbol_valid : STD_LOGIC;
         SIGNAL symbol_out : STD_LOGIC_VECTOR(2 DOWNTO 0); -- output 3-bit detection symbol 
         SIGNAL dout : STD_LOGIC_VECTOR(7 DOWNTO 0);
         SIGNAL dvalid : STD_LOGIC;
         SIGNAL error : STD_LOGIC;
-        
+
         SIGNAL uart_din : STD_LOGIC_VECTOR(7 DOWNTO 0);
         SIGNAL uart_busy : STD_LOGIC;
         SIGNAL uart_wen : STD_LOGIC;
-        
+
 BEGIN
 
         symb_det_inst : symb_det_stub PORT MAP(
@@ -112,7 +112,6 @@ BEGIN
                 dvalid => dvalid,
                 error => error);
 
-
         dpop_inst : dpop PORT MAP(
                 mcd_din => dout,
                 mcd_wen => dvalid,
@@ -121,7 +120,7 @@ BEGIN
                 uart_wen => uart_wen,
                 clk => clk,
                 clr => clr);
-        
+
         myuart_inst : myuart PORT MAP(
                 din => uart_din,
                 busy => uart_busy,
@@ -129,7 +128,7 @@ BEGIN
                 sout => sout,
                 clr => clr,
                 clk => clk);
-        
+
         led_busy <= uart_busy;
-        
+
 END Behavioral;
