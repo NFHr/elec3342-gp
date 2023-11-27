@@ -30,7 +30,7 @@ ARCHITECTURE Behavioral OF symb_det IS
     SIGNAL sample_done : STD_LOGIC := '0';
     SIGNAL cnt : INTEGER := 0;
     SIGNAL threshold : INTEGER := 200;
-
+    SIGNAL pre_data : STD_LOGIC_VECTOR(11 DOWNTO 0);
 BEGIN
 
     proc_enable_sampling : PROCESS (clk, clr)
@@ -60,8 +60,8 @@ BEGIN
     det_sample <= start_sampling;
 
     -- Average moving
-   process (clk, clr)
-   VARIABLE inp : INTEGER;
+    process (clk, clr)
+    VARIABLE inp : INTEGER;
     begin
        inp := to_integer(unsigned(adc_data)) - 2047;
        if clr = '1' then -- reset
@@ -82,7 +82,7 @@ BEGIN
 
     zero_crossing_detection : PROCESS (start_sampling, clk)
         --ZCD: detect the adc reaches 2047 with the same direction
-        VARIABLE ref : INTEGER := 2047; --unchanged
+        -- VARIABLE ref : INTEGER := 2047; --unchanged
         VARIABLE cycle : INTEGER;
         VARIABLE cycle1 : INTEGER;
         VARIABLE data : INTEGER;
@@ -95,9 +95,9 @@ BEGIN
             cycle1 := 0;
         ELSIF rising_edge(clk) THEN --and sound = '1' 
             IF sampling = '1' THEN
-                data := to_integer(unsigned(adc_data));
-                IF (data - ref) <= 120 AND (cycle - cycle1) > 10 THEN
-                    IF (ref - data) <= 150 THEN
+                -- data := to_integer(unsigned(adc_data));
+                IF (pre_data(11) /= adc_data(11))  AND (cycle - cycle1) > 10 THEN -- (data - ref) <= 120
+                    -- IF (ref - data) <= 150 THEN
                         IF cnt = 0 THEN
                             cycle := 0;
                             cnt <= cnt + 1;
@@ -111,7 +111,7 @@ BEGIN
                             cnt <= cnt + 1;
                             cycle1 := cycle;
                         END IF;
-                    END IF;
+                    -- END IF;
                 END IF;
                 cycle := cycle + 1;
             END IF;
@@ -119,6 +119,7 @@ BEGIN
                 sample_done <= '0';
             END IF;
             valid_delay := valid_delay + 1;
+            pre_data = adc_data;
         END IF;
     END PROCESS;
 
