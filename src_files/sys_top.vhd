@@ -46,7 +46,7 @@ ARCHITECTURE Behavioral OF sys_top IS
             clk_div128 : OUT STD_LOGIC);
     END COMPONENT clk_div;
 
-    COMPONENT symb_det_stub IS
+    COMPONENT symb_det IS
         PORT (
             clk : IN STD_LOGIC; -- input clock 96kHz
             clr : IN STD_LOGIC; -- input synchronized reset
@@ -56,9 +56,9 @@ ARCHITECTURE Behavioral OF sys_top IS
 
             det_sample : OUT STD_LOGIC;
             det_sound : OUT STD_LOGIC);
-    END COMPONENT symb_det_stub;
+    END COMPONENT symb_det;
 
-    COMPONENT mcdecoder_stub IS
+    COMPONENT mcdecoder IS
         PORT (
             din : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
             valid : IN STD_LOGIC;
@@ -73,7 +73,7 @@ ARCHITECTURE Behavioral OF sys_top IS
             mcd_decode : OUT STD_LOGIC;
             mcd_fin : OUT STD_LOGIC;
             mcd_valid : OUT STD_LOGIC);
-    END COMPONENT mcdecoder_stub;
+    END COMPONENT mcdecoder;
 
     COMPONENT myuart IS
         PORT (
@@ -139,7 +139,7 @@ BEGIN
         clr => clr
     );
 
-    symb_det_inst : symb_det_stub PORT MAP(
+    symb_det_inst : symb_det PORT MAP(
         clk => clk,
         clr => clr,
         adc_data => adc_data,
@@ -148,7 +148,7 @@ BEGIN
         det_sample => l_det_sample,
         det_sound => l_det_sound);
 
-    mcdecoder_inst : mcdecoder_stub PORT MAP(
+    mcdecoder_inst : mcdecoder PORT MAP(
         din => symbol_out,
         valid => symbol_valid,
         clr => clr,
