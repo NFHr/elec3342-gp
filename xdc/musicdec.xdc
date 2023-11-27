@@ -98,14 +98,14 @@ set_property PACKAGE_PIN U7 [get_ports {debug_seg[6]}]
 #set_property PACKAGE_PIN V7 [get_ports dp]
 	#set_property IOSTANDARD LVCMOS33 [get_ports dp]
 
-set_property PACKAGE_PIN U2 [get_ports debug_ano]
-	set_property IOSTANDARD LVCMOS33 [get_ports debug_ano]
-#set_property PACKAGE_PIN U4 [get_ports {an[1]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {an[1]}]
-#set_property PACKAGE_PIN V4 [get_ports {an[2]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {an[2]}]
-#set_property PACKAGE_PIN W4 [get_ports {an[3]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {an[3]}]
+set_property PACKAGE_PIN U2 [get_ports {debug_an[0]}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {debug_an[0]}]
+set_property PACKAGE_PIN U4 [get_ports {debug_an[1]}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {debug_an[1]}]
+set_property PACKAGE_PIN V4 [get_ports {debug_an[2]}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {debug_an[2]}]
+set_property PACKAGE_PIN W4 [get_ports {debug_an[3]}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {debug_an[3]}]
 
 
 ##Buttons
