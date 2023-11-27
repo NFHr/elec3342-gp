@@ -36,13 +36,12 @@ ENTITY sim_top IS
         adc_data : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
         sout : OUT STD_LOGIC;
         led_busy : OUT STD_LOGIC;
+        
         mcd_dout : OUT STD_LOGIC_VECTOR (7 DOWNTO 0)
     );
 END sim_top;
 
 ARCHITECTURE Behavioral OF sim_top IS
-    
-    signal r_mcd_dout : STD_LOGIC_VECTOR (7 DOWNTO 0);
 
     COMPONENT symb_det IS
         PORT (
@@ -50,10 +49,7 @@ ARCHITECTURE Behavioral OF sim_top IS
             clr : IN STD_LOGIC; -- input synchronized reset
             adc_data : IN STD_LOGIC_VECTOR(11 DOWNTO 0); -- input 12-bit ADC data
             symbol_valid : OUT STD_LOGIC;
-            symbol_out : OUT STD_LOGIC_VECTOR(2 DOWNTO 0); -- output 3-bit detection symbol
-
-            det_sample : OUT STD_LOGIC;
-            det_sound : OUT STD_LOGIC);
+            symbol_out : OUT STD_LOGIC_VECTOR(2 DOWNTO 0));
     END COMPONENT symb_det;
 
     COMPONENT mcdecoder IS
@@ -64,13 +60,7 @@ ARCHITECTURE Behavioral OF sim_top IS
             clk : IN STD_LOGIC;
             dout : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
             dvalid : OUT STD_LOGIC;
-            error : OUT STD_LOGIC;
-
-            mcd_err : OUT STD_LOGIC;
-            mcd_wait : OUT STD_LOGIC;
-            mcd_decode : OUT STD_LOGIC;
-            mcd_fin : OUT STD_LOGIC;
-            mcd_valid : OUT STD_LOGIC);
+            error : OUT STD_LOGIC);
     END COMPONENT mcdecoder;
 
     COMPONENT myuart IS
@@ -89,17 +79,6 @@ ARCHITECTURE Behavioral OF sim_top IS
     SIGNAL dvalid : STD_LOGIC;
     SIGNAL error : STD_LOGIC;
 
-    -- DEBUG SIGNAL
-    SIGNAL s_mcd_err : STD_LOGIC;
-    SIGNAL s_mcd_wait : STD_LOGIC;
-    SIGNAL s_mcd_decode : STD_LOGIC;
-    SIGNAL s_mcd_fin : STD_LOGIC;
-    SIGNAL s_mcd_valid : STD_LOGIC;
-
-    SIGNAL l_det_sample : STD_LOGIC;
-    SIGNAL l_det_sound : STD_LOGIC;
-    
-
 BEGIN
 
     symb_det_inst : symb_det PORT MAP(
@@ -107,9 +86,7 @@ BEGIN
         clr => clr,
         adc_data => adc_data,
         symbol_valid => symbol_valid,
-        symbol_out => symbol_out,
-        det_sample => l_det_sample,
-        det_sound => l_det_sound);
+        symbol_out => symbol_out,);
 
     mcdecoder_inst : mcdecoder PORT MAP(
         din => symbol_out,
@@ -118,13 +95,7 @@ BEGIN
         clk => clk,
         dout => dout,
         dvalid => dvalid,
-        error => error,
-
-        mcd_err => s_mcd_err,
-        mcd_wait => s_mcd_wait,
-        mcd_decode => s_mcd_decode,
-        mcd_fin => s_mcd_fin,
-        mcd_valid => s_mcd_valid);
+        error => error);
 
     -- you may need a FIFO here
 

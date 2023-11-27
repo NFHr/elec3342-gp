@@ -10,11 +10,6 @@ ENTITY mcdecoder IS
     dout : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
     dvalid : OUT STD_LOGIC;
     error : OUT STD_LOGIC;
-    mcd_err : OUT STD_LOGIC;
-    mcd_wait : OUT STD_LOGIC;
-    mcd_decode : OUT STD_LOGIC;
-    mcd_fin : OUT STD_LOGIC;
-    mcd_valid : OUT STD_LOGIC
   );
 END mcdecoder;
 
@@ -136,28 +131,6 @@ BEGIN
       WHEN OTHERS =>
         error <= '0';
         dvalid <= '0';
-    END CASE;
-  END PROCESS;
-
-  DEBUG_PROC : PROCESS (state)
-  BEGIN
-    mcd_err <= '0';
-    mcd_wait <= '0';
-    mcd_decode <= '0';
-    mcd_fin <= '0';
-    mcd_valid <= '0';
-
-    CASE state IS
-      WHEN St_ERROR =>
-        mcd_err <= '1';
-      WHEN St_WAIT_BOS =>
-        mcd_wait <= '1';
-      WHEN St_DECODE =>
-        mcd_decode <= '1';
-      WHEN St_DECODE_FIN =>
-        mcd_fin <= '1';
-      WHEN St_VALID =>
-        mcd_valid <= '1';
     END CASE;
   END PROCESS;
 END Behavioral;
