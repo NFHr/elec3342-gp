@@ -54,6 +54,7 @@ BEGIN
                 END IF;
             END IF;
         END IF;
+        det_sound <= idle;
     END PROCESS proc_enable_sampling;
 
     det_sample <= start_sampling;

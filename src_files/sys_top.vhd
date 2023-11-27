@@ -14,7 +14,7 @@ ENTITY sys_top IS
         debug_swc : IN STD_LOGIC;
         debug_led : OUT STD_LOGIC_VECTOR(11 DOWNTO 0);
         debug_seg : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
-        debug_ano : OUT STD_LOGIC);
+        debug_an : OUT STD_LOGIC_VECTOR(3 DOWNTO 0));
 END sys_top;
 
 ARCHITECTURE Behavioral OF sys_top IS
@@ -181,7 +181,7 @@ BEGIN
     DEBUG_LED_PROC : PROCESS (debug_swc)
     BEGIN
         IF debug_swc = '1' THEN
-            debug_ano <= '0';
+            debug_an <= "1110";
             debug_led <=
                 l_det_valid &
                 l_mcd_dvalid &
@@ -196,7 +196,7 @@ BEGIN
                 l_det_sample &
                 l_det_sound;
         ELSE
-            debug_ano <= '1';
+            debug_an <= "1111";
             debug_led <= (OTHERS => '0');
         END IF;
     END PROCESS;
