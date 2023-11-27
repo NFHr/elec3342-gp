@@ -29,6 +29,7 @@ ARCHITECTURE Behavioral OF symb_det IS
     SIGNAL data_cycle : INTEGER;
     SIGNAL sample_done : STD_LOGIC := '0';
     SIGNAL cnt : INTEGER := 0;
+    SIGNAL threshold : INTEGER := 200;
 
 BEGIN
 
@@ -40,7 +41,7 @@ BEGIN
             start_sampling <= '0';
             idle := '1';
         ELSIF rising_edge(clk) THEN
-            IF idle = '1' AND adc_data /= 0 THEN
+            IF idle = '1' AND sound THEN -- adjust sound threshold -- original : adc_data /= 0
                 idle := '0';
             END IF;
             IF idle = '0' THEN
@@ -56,6 +57,27 @@ BEGIN
     END PROCESS proc_enable_sampling;
 
     det_sample <= start_sampling;
+
+    -- Average moving
+   process (clk, clr)
+   VARIABLE inp : INTEGER;
+    begin
+       inp := to_integer(unsigned(adc_data)) - 2047;
+       if clr = '1' then -- reset
+           sum <= 0;
+           avg <= 0;
+       elsif rising_edge(clk) then
+           sum <= inp + sum - avg; -- update sum
+           avg <= sum / n; -- calc average
+       end if;
+    end process;
+    -- Sound threshold
+    sound <= '1' when abs(avg) > threshold else '0';
+    -- sound_debug <= '1' when abs(avg) > threshold else '0';
+    -- sound_debug <= '0';
+
+
+
 
     zero_crossing_detection : PROCESS (start_sampling, clk)
         --ZCD: detect the adc reaches 2047 with the same direction
@@ -74,7 +96,7 @@ BEGIN
             IF sampling = '1' THEN
                 data := to_integer(unsigned(adc_data));
                 IF (data - ref) <= 120 AND (cycle - cycle1) > 10 THEN
-                    IF (ref - data) <= 160 THEN
+                    IF (ref - data) <= 150 THEN
                         IF cnt = 0 THEN
                             cycle := 0;
                             cnt <= cnt + 1;
