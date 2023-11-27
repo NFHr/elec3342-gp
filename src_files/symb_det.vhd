@@ -22,7 +22,7 @@ ARCHITECTURE Behavioral OF symb_det IS
 
     SIGNAL freq_counter : INTEGER RANGE 0 TO CLOCK_FREQ := DELAY * ADC_FREQ;
     SIGNAL start_sampling : STD_LOGIC := '0';
-
+    SIGNAL sound : STD_LOGIC := '0';
     SIGNAL sampling : STD_LOGIC := '0';
     SIGNAL data_cycle : INTEGER;
     SIGNAL sample_done : STD_LOGIC := '0';
@@ -39,7 +39,7 @@ BEGIN
             start_sampling <= '0';
             idle := '1';
         ELSIF rising_edge(clk) THEN
-            IF idle = '1' AND sound THEN -- adjust sound threshold -- original : adc_data /= 0
+            IF idle = '1' AND sound = '1' THEN -- adjust sound threshold -- original : adc_data /= 0
                 idle := '0';
             END IF;
             IF idle = '0' THEN

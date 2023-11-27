@@ -86,7 +86,7 @@ BEGIN
         clr => clr,
         adc_data => adc_data,
         symbol_valid => symbol_valid,
-        symbol_out => symbol_out,);
+        symbol_out => symbol_out);
 
     mcdecoder_inst : mcdecoder PORT MAP(
         din => symbol_out,
