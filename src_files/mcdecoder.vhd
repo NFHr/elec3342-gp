@@ -10,6 +10,7 @@ ENTITY mcdecoder IS
     dout : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
     dvalid : OUT STD_LOGIC;
     error : OUT STD_LOGIC;
+    
     mcd_err : OUT STD_LOGIC;
     mcd_wait : OUT STD_LOGIC;
     mcd_decode : OUT STD_LOGIC;
@@ -19,145 +20,256 @@ ENTITY mcdecoder IS
 END mcdecoder;
 
 ARCHITECTURE Behavioral OF mcdecoder IS
-  TYPE state_type IS (St_ERROR, St_WAIT_BOS, St_DECODE, St_DECODE_FIN, St_VALID);
-  SIGNAL next_state, state : state_type;
-  SIGNAL din_reg : STD_LOGIC_VECTOR(11 DOWNTO 0) := (OTHERS => '0');
-  SIGNAL dout_cnt : STD_LOGIC_VECTOR(1 DOWNTO 0);
-  SIGNAL dout_reg : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    TYPE state_type IS (St_RESET, St_ERROR, St_WAIT, St_checkstart_1, St_checkstart_2, St_checkstart_3, St_checkstart_again_1, St_READ, St_READ_1, St_READ_2, St_READ_3, St_READ_4, St_READ_5, St_READ_6, St_checkend_1, St_checkend_2, St_checkend_3);
+    SIGNAL state, next_state : state_type := St_RESET;
+    CONSTANT clkPeriod : TIME := 10 us;
 BEGIN
-
-  SYNC_PROC : PROCESS (clk, clr)
-  BEGIN
-    IF (clr = '1') THEN
-      state <= St_WAIT_BOS;
-    ELSIF rising_edge(clk) THEN
-      state <= next_state;
-    END IF;
-  END PROCESS;
-
-  NEXT_STATE_PROC : PROCESS (state, din_reg)
-    VARIABLE eos_flag : STD_LOGIC := '0';
-  BEGIN
-    CASE state IS
-      WHEN St_VALID =>
-        next_state <= St_DECODE;
-      WHEN St_ERROR =>
-        next_state <= St_WAIT_BOS;
-      WHEN St_WAIT_BOS =>
-        IF din_reg = "000111000111" THEN
-          next_state <= St_DECODE;
+    sync_process : PROCESS (clk, clr)
+    BEGIN
+        IF clr = '1' THEN
+            state <= St_RESET;
+        ELSIF rising_edge(clk) THEN
+            IF valid = '1' THEN
+                state <= next_state;
+            END IF;
         END IF;
-      WHEN St_DECODE =>
-        IF dout_cnt = "01" THEN
-          next_state <= St_DECODE_FIN;
-        END IF;
-      WHEN St_DECODE_FIN =>
-        IF dout_cnt = "10" THEN
-          next_state <= St_VALID;
-          CASE din_reg(5 DOWNTO 0) IS
-              --1x
-            WHEN "001010" => dout_reg <= "01000010";--B
-            WHEN "001011" => dout_reg <= "01000100";--D
-            WHEN "001100" => dout_reg <= "01001000";--H
-            WHEN "001101" => dout_reg <= "01001100";--L
-            WHEN "001110" => dout_reg <= "01010010";--R
-              --2x
-            WHEN "010001" => dout_reg <= "01000001";--A
-            WHEN "010011" => dout_reg <= "01000111";--G
-            WHEN "010100" => dout_reg <= "01001011";--K
-            WHEN "010101" => dout_reg <= "01010001";--Q
-            WHEN "010110" => dout_reg <= "01010110";--V
-              --3x
-            WHEN "011001" => dout_reg <= "01000011";--C
-            WHEN "011010" => dout_reg <= "01000110";--F
-            WHEN "011100" => dout_reg <= "01010000";--P
-            WHEN "011101" => dout_reg <= "01010101";--U
-            WHEN "011110" => dout_reg <= "01011010";--Z
-              --4x
-            WHEN "100001" => dout_reg <= "01000101";--E
-            WHEN "100010" => dout_reg <= "01001010";--J
-            WHEN "100011" => dout_reg <= "01001111";--O
-            WHEN "100101" => dout_reg <= "01011001";--Y
-            WHEN "100110" => dout_reg <= "00101110";--. 
-              --5x
-            WHEN "101001" => dout_reg <= "01001001";--I
-            WHEN "101010" => dout_reg <= "01001110";--N
-            WHEN "101011" => dout_reg <= "01010100";--T
-            WHEN "101100" => dout_reg <= "01011000";--X
-            WHEN "101110" => dout_reg <= "00111111";--?
-              --6x
-            WHEN "110001" => dout_reg <= "01001101";--M
-            WHEN "110010" => dout_reg <= "01010011";--S
-            WHEN "110011" => dout_reg <= "01010111";--W
-            WHEN "110100" => dout_reg <= "00100001";--!
-            WHEN "110101" => dout_reg <= "00100000";--SPACE
-            WHEN OTHERS =>
-              IF din_reg(5 DOWNTO 0) = "111000" THEN
-                IF eos_flag = '1' THEN
-                  next_state <= St_WAIT_BOS;
-                  eos_flag := '0';
+    END PROCESS;
+
+    state_logic : PROCESS (state)
+    BEGIN
+        next_state <= state;
+        CASE (state) IS
+            WHEN St_RESET =>
+                IF din = "000" THEN
+                    next_state <= St_checkstart_1;
                 ELSE
-                  eos_flag := '1';
-                  next_state <= St_DECODE;
+                    next_state <= St_WAIT;
                 END IF;
-              ELSE
-                next_state <= St_ERROR;
-              END IF;
-          END CASE;
+            WHEN St_WAIT =>
+                IF din = "000" THEN
+                    next_state <= St_checkstart_1;
+                ELSE
+                    next_state <= St_RESET;
+                END IF;
+            WHEN St_ERROR =>
+                next_state <= St_RESET;
+            WHEN St_checkstart_1 =>
+                IF din = "111" THEN
+                    next_state <= St_checkstart_2;
+                ELSIF din = "000" THEN
+                    next_state <= St_checkstart_again_1;
+                ELSE
+                    next_state <= St_WAIT;
+                END IF;
+            WHEN St_checkstart_again_1 =>
+                IF din = "111" THEN
+                    next_state <= St_checkstart_2;
+                ELSE
+                    next_state <= St_WAIT;
+                END IF;
+            WHEN St_checkstart_2 =>
+                IF din = "000" THEN
+                    next_state <= St_checkstart_3;
+                ELSE
+                    next_state <= St_WAIT;
+                END IF;
+            WHEN St_checkstart_3 =>
+                IF din = "111" THEN
+                    next_state <= St_READ;
+                ELSIF din = "000" THEN
+                    next_state <= St_checkstart_1;
+                ELSE
+                    next_state <= St_WAIT;
+                END IF;
+            WHEN St_READ =>
+                IF din = "001" THEN
+                    next_state <= St_READ_1;
+                ELSIF din = "010" THEN
+                    next_state <= St_READ_2;
+                ELSIF din = "011" THEN
+                    next_state <= St_READ_3;
+                ELSIF din = "100" THEN
+                    next_state <= St_READ_4;
+                ELSIF din = "101" THEN
+                    next_state <= St_READ_5;
+                ELSIF din = "110" THEN
+                    next_state <= St_READ_6;
+                ELSIF din = "000" THEN
+                    next_state <= St_ERROR;
+                ELSIF din = "111" THEN
+                    next_state <= St_checkend_1;
+                END IF;
+            WHEN St_READ_1 =>
+                IF din = ("000" OR "111" OR "001") THEN
+                    next_state <= St_ERROR;
+                ELSE
+                    next_state <= St_READ;
+                END IF;
+            WHEN St_READ_2 =>
+                IF din = ("000" OR "111" OR "010") THEN
+                    next_state <= St_ERROR;
+                ELSE
+                    next_state <= St_READ;
+                END IF;
+            WHEN St_READ_3 =>
+                IF din = ("000" OR "111" OR "011") THEN
+                    next_state <= St_ERROR;
+                ELSE
+                    next_state <= St_READ;
+                END IF;
+            WHEN St_READ_4 =>
+                IF din = ("000" OR "111" OR "100") THEN
+                    next_state <= St_ERROR;
+                ELSE
+                    next_state <= St_READ;
+                END IF;
+            WHEN St_READ_5 =>
+                IF din = ("000" OR "111" OR "101") THEN
+                    next_state <= St_ERROR;
+                ELSE
+                    next_state <= St_READ;
+                END IF;
+            WHEN St_READ_6 =>
+                IF din = ("000" OR "111" OR "110") THEN
+                    next_state <= St_ERROR;
+                ELSE
+                    next_state <= St_READ;
+                END IF;
+            WHEN St_checkend_1 =>
+                IF din = "000" THEN
+                    next_state <= St_checkend_2;
+                ELSE
+                    next_state <= St_ERROR;
+                END IF;
+            WHEN St_checkend_2 =>
+                IF din = "111" THEN
+                    next_state <= St_checkend_3;
+                ELSE
+                    next_state <= St_ERROR;
+                END IF;
+            WHEN St_checkend_3 =>
+                IF din = "000" THEN
+                    next_state <= St_WAIT;
+                ELSE
+                    next_state <= St_ERROR;
+                END IF;
+        END CASE;
+    END PROCESS;
+    output_logic : PROCESS (state)
+    BEGIN
+        dvalid <= '0';
+        IF state = St_ERROR THEN
+            error <= '1';
+        ELSE
+            error <= '0';
         END IF;
-      WHEN OTHERS => next_state <= state;
-    END CASE;
-  END PROCESS;
-
-  DIN_PROC : PROCESS (valid)
-  BEGIN
-    IF valid = '1' THEN
-      din_reg <= din_reg(8 DOWNTO 0) & din;
-      IF state = St_DECODE THEN
-        dout_cnt <= "01";
-      ELSIF state = St_DECODE_FIN THEN
-        dout_cnt <= "10";
-      END IF;
-    ELSE
-      dout_cnt <= "00";
-    END IF;
-  END PROCESS;
-
-  OUTPUT_PROC : PROCESS (state)
-  BEGIN
-    CASE state IS
-      WHEN St_ERROR =>
-        error <= '1';
-        dvalid <= '0';
-      WHEN St_VALID =>
-        dout <= dout_reg;
-        dvalid <= '1';
-        error <= '0';
-      WHEN OTHERS =>
-        error <= '0';
-        dvalid <= '0';
-    END CASE;
-  END PROCESS;
-
-  DEBUG_PROC : PROCESS (state)
-  BEGIN
-    mcd_err <= '0';
-    mcd_wait <= '0';
-    mcd_decode <= '0';
-    mcd_fin <= '0';
-    mcd_valid <= '0';
-
-    CASE state IS
-      WHEN St_ERROR =>
-        mcd_err <= '1';
-      WHEN St_WAIT_BOS =>
-        mcd_wait <= '1';
-      WHEN St_DECODE =>
-        mcd_decode <= '1';
-      WHEN St_DECODE_FIN =>
-        mcd_fin <= '1';
-      WHEN St_VALID =>
-        mcd_valid <= '1';
-    END CASE;
-  END PROCESS;
+        IF state = St_READ_1 THEN
+            IF din = "010" THEN
+                dout <= "01000001";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "011" THEN
+                dout <= "01000010";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "100" THEN
+                dout <= "01000011";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "101" THEN
+                dout <= "01000100";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "110" THEN
+                dout <= "01000101";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            END IF;
+        END IF;
+        IF state = St_READ_2 THEN
+            IF din = "001" THEN
+                dout <= "01000110";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "011" THEN
+                dout <= "01000111";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "100" THEN
+                dout <= "01001000";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "101" THEN
+                dout <= "01001001";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "110" THEN
+                dout <= "01001010";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            END IF;
+        END IF;
+        IF state = St_READ_3 THEN
+            IF din = "001" THEN
+                dout <= "01001011";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "010" THEN
+                dout <= "01001100";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "100" THEN
+                dout <= "01001101";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "101" THEN
+                dout <= "01001110";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "110" THEN
+                dout <= "01001111"; --O
+                dvalid <= '1', '0' AFTER clkPeriod;
+            END IF;
+        END IF;
+        IF state = St_READ_4 THEN
+            IF din = "001" THEN
+                dout <= "01010000";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "010" THEN
+                dout <= "01010001";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "011" THEN
+                dout <= "01010010";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "101" THEN
+                dout <= "01010011";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "110" THEN
+                dout <= "01010100"; --T
+                dvalid <= '1', '0' AFTER clkPeriod;
+            END IF;
+        END IF;
+        IF state = St_READ_5 THEN
+            IF din = "001" THEN
+                dout <= "01010101";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "010" THEN
+                dout <= "01010110";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "011" THEN
+                dout <= "01010111";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "100" THEN
+                dout <= "01011000";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "110" THEN
+                dout <= "01011001"; --Y
+                dvalid <= '1', '0' AFTER clkPeriod;
+            END IF;
+        END IF;
+        IF state = St_READ_6 THEN
+            IF din = "001" THEN
+                dout <= "01011010";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "010" THEN
+                dout <= "00100001";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "011" THEN
+                dout <= "00101110";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "100" THEN
+                dout <= "00111111";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            ELSIF din = "101" THEN
+                dout <= "00100000";
+                dvalid <= '1', '0' AFTER clkPeriod;
+            END IF;
+        END IF;
+    END PROCESS;
 END Behavioral;

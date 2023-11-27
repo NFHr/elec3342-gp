@@ -44,7 +44,7 @@ ARCHITECTURE Behavioral OF sim_top IS
     
     signal r_mcd_dout : STD_LOGIC_VECTOR (7 DOWNTO 0);
 
-    COMPONENT symb_det IS
+    COMPONENT symb_det_stub IS
         PORT (
             clk : IN STD_LOGIC; -- input clock 96kHz
             clr : IN STD_LOGIC; -- input synchronized reset
@@ -54,7 +54,7 @@ ARCHITECTURE Behavioral OF sim_top IS
 
             det_sample : OUT STD_LOGIC;
             det_sound : OUT STD_LOGIC);
-    END COMPONENT symb_det;
+    END COMPONENT symb_det_stub;
 
     COMPONENT mcdecoder IS
         PORT (
@@ -102,7 +102,7 @@ ARCHITECTURE Behavioral OF sim_top IS
 
 BEGIN
 
-    symb_det_inst : symb_det PORT MAP(
+    symb_det_inst : symb_det_stub PORT MAP(
         clk => clk,
         clr => clr,
         adc_data => adc_data,
