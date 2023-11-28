@@ -10,9 +10,7 @@ ENTITY mcdecoder IS
         dout : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
         dvalid : OUT STD_LOGIC;
         error : OUT STD_LOGIC;
-
         mcd_state : OUT STD_LOGIC_VECTOR(5 DOWNTO 0)
-
     );
 END mcdecoder;
 
