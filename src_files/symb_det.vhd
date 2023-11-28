@@ -28,6 +28,8 @@ ARCHITECTURE Behavioral OF symb_det IS
     SIGNAL sample_done : STD_LOGIC := '0';
     SIGNAL cnt : INTEGER := 0;
     SIGNAL threshold : INTEGER := 200;
+    SIGNAL sum : INTEGER;
+    SIGNAL avg : INTEGER;
     SIGNAL pre_data : STD_LOGIC_VECTOR(11 DOWNTO 0);
     SIGNAL signed_data : signed(11 DOWNTO 0);
     SIGNAL square_sig : STD_LOGIC;
@@ -57,7 +59,6 @@ BEGIN
                 END IF;
             END IF;
         END IF;
-        det_sound <= idle;
     END PROCESS proc_enable_sampling;
 
 
@@ -71,7 +72,7 @@ BEGIN
            avg <= 0;
        elsif rising_edge(clk) then
            sum <= inp + sum - avg; -- update sum
-           avg <= sum / n; -- calc average
+           avg <= sum / 8; -- calc average
        end if;
     end process;
     -- Sound threshold
@@ -81,12 +82,12 @@ BEGIN
     square_wave : process (clk, signed_data)
     BEGIN
         IF signed_data > 250 THEN
-        square_sig <= '1';
+            square_sig <= '1';
         ELSIF signed_data < -250 THEN
             square_sig <= '0';
         END IF;
         square_buf <= square_sig;
-    END PROCESS 
+    END PROCESS;
 
 
     zero_crossing_detection : PROCESS (start_sampling, clk)
@@ -118,7 +119,7 @@ BEGIN
                 IF en_count = '1' THEN
                     data_cycle <= data_cycle + 1;
                 else
-                    data_cycle <= '0';
+                    data_cycle <= 0;
                 END IF;
             END IF;
         END IF;
