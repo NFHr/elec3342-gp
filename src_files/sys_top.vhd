@@ -60,7 +60,7 @@ ARCHITECTURE Behavioral OF sys_top IS
                 );
         END COMPONENT symb_det;
 
-        COMPONENT mcdecoder IS
+        COMPONENT mcdecoder_stub IS
                 PORT (
                         din : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
                         valid : IN STD_LOGIC;
@@ -71,7 +71,7 @@ ARCHITECTURE Behavioral OF sys_top IS
                         error : OUT STD_LOGIC;
                         mcd_state : OUT STD_LOGIC_VECTOR(5 DOWNTO 0)
                 );
-        END COMPONENT mcdecoder;
+        END COMPONENT mcdecoder_stub;
 
         COMPONENT myuart IS
                 PORT (
