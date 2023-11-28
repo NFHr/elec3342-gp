@@ -50,7 +50,7 @@ ARCHITECTURE Behavioral OF sys_top IS
                         clk_div128 : OUT STD_LOGIC);
         END COMPONENT clk_div;
 
-        COMPONENT symb_det_stub IS
+        COMPONENT symb_det IS
                 PORT (
                         clk : IN STD_LOGIC; -- input clock 96kHz
                         clr : IN STD_LOGIC; -- input synchronized reset
@@ -58,7 +58,7 @@ ARCHITECTURE Behavioral OF sys_top IS
                         symbol_valid : OUT STD_LOGIC;
                         symbol_out : OUT STD_LOGIC_VECTOR(2 DOWNTO 0) -- output 3-bit detection symbol
                 );
-        END COMPONENT symb_det_stub;
+        END COMPONENT symb_det;
 
         COMPONENT mcdecoder IS
                 PORT (
@@ -143,7 +143,7 @@ BEGIN
                 clr => clr
         );
 
-        symb_det_inst : symb_det_stub PORT MAP(
+        symb_det_inst : symb_det PORT MAP(
                 clk => clk,
                 clr => clr,
                 adc_data => adc_data,
