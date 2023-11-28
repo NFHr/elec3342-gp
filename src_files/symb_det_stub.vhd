@@ -16,7 +16,7 @@ END symb_det_stub;
 ARCHITECTURE Behavioral OF symb_det_stub IS
 
     CONSTANT CLOCK_FREQ : INTEGER := (96000/16 - 1);
-    CONSTANT COLDDOWN : INTEGER := (96000 - 1);
+    CONSTANT COLDDOWN : INTEGER := (6000 - 1);
 
     SIGNAL freq_counter : INTEGER RANGE 0 TO CLOCK_FREQ := CLOCK_FREQ;
     SIGNAL data_idx : INTEGER RANGE 0 TO COLDDOWN := 0;
@@ -31,14 +31,16 @@ BEGIN
             freq_counter <= CLOCK_FREQ;
         ELSIF rising_edge(clk) THEN
             IF freq_counter = 0 THEN
-            
                 IF data_idx = COLDDOWN THEN
                     data_idx <= 0;
                 ELSE
                     data_idx <= data_idx + 1;
                 END IF;
                 
-                symbol_valid <= '1';
+                IF data_idx <= 28 then
+                    symbol_valid <= '1';
+                end if;
+                
                 freq_counter <= CLOCK_FREQ;
             ELSE
                 symbol_valid <= '0';
@@ -50,7 +52,6 @@ BEGIN
     symbol_out_proc : PROCESS (data_idx)
     BEGIN
         CASE data_idx IS
-            WHEN 0 => symbol_out <= "000";
             WHEN 1 => symbol_out <= "000";
             WHEN 2 => symbol_out <= "111";
             WHEN 3 => symbol_out <= "000";

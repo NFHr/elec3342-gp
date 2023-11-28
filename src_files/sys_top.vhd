@@ -15,8 +15,10 @@ ENTITY sys_top IS
                 led_busy : OUT STD_LOGIC;
 
                 debug_swc : IN STD_LOGIC;
+                debug_led : OUT STD_LOGIC_VECTOR(11 DOWNTO 0);
                 debug_seg : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
                 debug_an : OUT STD_LOGIC_VECTOR(3 DOWNTO 0));
+
 END sys_top;
 
 ARCHITECTURE Behavioral OF sys_top IS
@@ -48,7 +50,7 @@ ARCHITECTURE Behavioral OF sys_top IS
                         clk_div128 : OUT STD_LOGIC);
         END COMPONENT clk_div;
 
-        COMPONENT symb_det IS
+        COMPONENT symb_det_stub IS
                 PORT (
                         clk : IN STD_LOGIC; -- input clock 96kHz
                         clr : IN STD_LOGIC; -- input synchronized reset
@@ -56,7 +58,7 @@ ARCHITECTURE Behavioral OF sys_top IS
                         symbol_valid : OUT STD_LOGIC;
                         symbol_out : OUT STD_LOGIC_VECTOR(2 DOWNTO 0) -- output 3-bit detection symbol
                 );
-        END COMPONENT symb_det;
+        END COMPONENT symb_det_stub;
 
         COMPONENT mcdecoder IS
                 PORT (
@@ -66,7 +68,8 @@ ARCHITECTURE Behavioral OF sys_top IS
                         clk : IN STD_LOGIC;
                         dout : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
                         dvalid : OUT STD_LOGIC;
-                        error : OUT STD_LOGIC
+                        error : OUT STD_LOGIC;
+                        mcd_state : OUT STD_LOGIC_VECTOR(5 DOWNTO 0)
                 );
         END COMPONENT mcdecoder;
 
@@ -107,6 +110,7 @@ ARCHITECTURE Behavioral OF sys_top IS
         SIGNAL uart_busy : STD_LOGIC;
         SIGNAL uart_wen : STD_LOGIC;
 
+        SIGNAL mcd_state : STD_LOGIC_VECTOR(5 DOWNTO 0);
 
 BEGIN
 
@@ -139,7 +143,7 @@ BEGIN
                 clr => clr
         );
 
-        symb_det_inst : symb_det PORT MAP(
+        symb_det_inst : symb_det_stub PORT MAP(
                 clk => clk,
                 clr => clr,
                 adc_data => adc_data,
@@ -153,7 +157,8 @@ BEGIN
                 clk => clk,
                 dout => dout,
                 dvalid => dvalid,
-                error => error);
+                error => error,
+                mcd_state => mcd_state);
 
         dpop_inst : dpop PORT MAP(
                 mcd_din => dout,
@@ -163,7 +168,7 @@ BEGIN
                 uart_wen => uart_wen,
                 clk => clk,
                 clr => clr);
-        
+
         myuart_inst : myuart PORT MAP(
                 din => uart_din,
                 busy => uart_busy,
@@ -174,7 +179,16 @@ BEGIN
 
         led_busy <= uart_busy;
 
-        debug_an <= "111" & debug_swc;
+        DEBUG_LED_PROC : PROCESS (debug_swc)
+        BEGIN
+                debug_an <= "111" & NOT debug_swc;
+                IF debug_swc = '1' THEN
+                        debug_led <= "000000" & mcd_state;
+                ELSE
+                        debug_led <= (OTHERS => '0');
+                END IF;
+        END PROCESS;
+
         DEBUG_SEG_PROC : PROCESS (symbol_out)
         BEGIN
                 CASE symbol_out IS

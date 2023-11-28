@@ -19,7 +19,7 @@ END dpop;
 ARCHITECTURE rtl OF dpop IS
     COMPONENT fifo_generator_0 IS
         PORT (
-            data_count : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+            -- data_count : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
             full : OUT STD_LOGIC;
             din : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
             wr_en : IN STD_LOGIC;
@@ -30,26 +30,25 @@ ARCHITECTURE rtl OF dpop IS
             rst : IN STD_LOGIC);
     END COMPONENT fifo_generator_0;
 
-    SIGNAL debug_data_count : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    -- SIGNAL debug_data_count : STD_LOGIC_VECTOR(7 DOWNTO 0);
 
     SIGNAL full : STD_LOGIC;
-    SIGNAL din : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    
     SIGNAL wr_en : STD_LOGIC;
 
     SIGNAL srst : STD_LOGIC;
 
     SIGNAL empty : STD_LOGIC;
-    SIGNAL dout : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL rd_en : STD_LOGIC;
 
 BEGIN
     fifo_inst : fifo_generator_0 PORT MAP(
-        data_count => debug_data_count,
+        -- data_count => debug_data_count,
         full => full,
-        din => din,
+        din => mcd_din,
         wr_en => wr_en,
         empty => empty,
-        dout => dout,
+        dout => uart_dout,
         rd_en => rd_en,
         clk => clk,
         rst => srst);
@@ -68,11 +67,9 @@ BEGIN
     PROCESS (empty, uart_busy)
     BEGIN
         IF empty = '0' AND uart_busy = '0' THEN
-            uart_dout <= dout;
             rd_en <= '1';
             uart_wen <= '1';
         ELSE
-            uart_dout <= (others => '0');
             rd_en <= '0';
             uart_wen <= '0';
         END IF;
@@ -81,7 +78,6 @@ BEGIN
     PROCESS (full, mcd_wen)
     BEGIN
         IF full = '0' AND mcd_wen = '1' THEN
-            din <= mcd_din;
             wr_en <= '1';
         ELSE
             wr_en <= '0';
