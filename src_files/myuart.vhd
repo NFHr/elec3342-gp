@@ -38,7 +38,6 @@ BEGIN
             start <= '0';
             din_idx <= 0;
         ELSIF rising_edge(clk) THEN
-
             IF (din_idx_clr = '1') THEN
                 din_idx <= 0;
             ELSIF (baud_en = '1') THEN
@@ -59,7 +58,6 @@ BEGIN
                 baud_en <= '0';
                 baud_count := baud_count + 1;
             END IF;
-
         END IF;
     END PROCESS SYNC_PROC;
 
@@ -93,12 +91,10 @@ BEGIN
                         sout <= din_reg(din_idx);
                         din_idx_clr <= '0';
                         start_clr <= '0';
-
                         IF (din_idx = 7) THEN
                             din_idx_clr <= '1';
                             state <= STOP_BIT;
                         END IF;
-
                     WHEN STOP_BIT =>
                         busy <= '1';
                         sout <= '1';

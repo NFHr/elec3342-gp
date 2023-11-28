@@ -179,7 +179,7 @@ BEGIN
 
         led_busy <= uart_busy;
 
-        DEBUG_LED_PROC : PROCESS (debug_swc)
+        DEBUG_LED_PROC : PROCESS (debug_swc, mcd_state)
         BEGIN
                 debug_an <= "111" & NOT debug_swc;
                 IF debug_swc = '1' THEN
