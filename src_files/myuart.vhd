@@ -15,8 +15,8 @@ END myuart;
 
 ARCHITECTURE Behavioral OF myuart IS
 
-    TYPE state_type IS (RESET, IDLE, START_BIT, DATA_BIT, STOP_BIT);
-    SIGNAL state, next_state : state_type := IDLE;
+    TYPE state_type IS (IDLE, START_BIT, DATA_BIT, STOP_BIT);
+    SIGNAL state : state_type := IDLE;
 
     SIGNAL baud_en : STD_LOGIC := '0';
 
@@ -25,27 +25,28 @@ ARCHITECTURE Behavioral OF myuart IS
     SIGNAL din_reg : STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');
 
     SIGNAL start : STD_LOGIC := '0';
+    SIGNAL start_clr : STD_LOGIC := '0';
 
 BEGIN
 
-    BAUD_SYNC_PROC : PROCESS (clk, clr)
+    SYNC_PROC : PROCESS (clk, clr)
         VARIABLE baud_count : INTEGER RANGE 0 TO 9 := 0;
     BEGIN
-        IF clr = '1' THEN
+        IF (clr = '1') THEN
             baud_en <= '0';
             baud_count := 0;
             start <= '0';
             din_idx <= 0;
         ELSIF rising_edge(clk) THEN
-            IF din_idx_clr = '1' THEN
+            IF (din_idx_clr = '1') THEN
                 din_idx <= 0;
-            ELSIF baud_en = '1' THEN
+            ELSIF (baud_en = '1') THEN
                 din_idx <= din_idx + 1;
             END IF;
 
-            IF state = STOP_BIT THEN
+            IF (start_clr = '1') THEN
                 start <= '0';
-            ELSIF wen = '1' AND start = '0' THEN
+            ELSIF (wen = '1') AND (start = '0') THEN
                 start <= '1';
                 din_reg <= din;
             END IF;
@@ -58,62 +59,53 @@ BEGIN
                 baud_count := baud_count + 1;
             END IF;
         END IF;
-    END PROCESS;
+    END PROCESS SYNC_PROC;
 
-    UART_SYNC_PROC : PROCESS (clk, clr)
+    UART_FSM : PROCESS (clk, clr)
     BEGIN
-        IF clr = '1' THEN
+        IF (clr = '1') THEN
+            busy <= '0';
+            sout <= '1';
+            din_idx_clr <= '1';
+            start_clr <= '1';
             state <= IDLE;
         ELSIF rising_edge(clk) THEN
-            state <= next_state;
-        END IF;
-    END PROCESS;
-
-    UART_NEXT_STATE_PROC : PROCESS (state, baud_en, start, din_idx)
-    BEGIN
-        IF baud_en = '1' THEN
-            CASE state IS
-                WHEN IDLE =>
-                    din_idx_clr <= '1';
-                    IF start = '1' THEN
-                        next_state <= START_BIT;
-                    END IF;
-                WHEN START_BIT =>
-                    din_idx_clr <= '0';
-                    next_state <= DATA_BIT;
-                WHEN DATA_BIT =>
-                    din_idx_clr <= '0';
-                    IF din_idx = 7 THEN
+            IF (baud_en = '1') THEN
+                CASE state IS
+                    WHEN IDLE =>
+                        busy <= '0';
+                        sout <= '1';
                         din_idx_clr <= '1';
-                        next_state <= STOP_BIT;
-                    END IF;
-                WHEN STOP_BIT =>
-                    din_idx_clr <= '1';
-                    next_state <= IDLE;
-                WHEN OTHERS =>
-                    next_state <= state;
-            END CASE;
+                        start_clr <= '0';
+                        IF (start = '1') THEN
+                            state <= START_BIT;
+                        END IF;
+                    WHEN START_BIT =>
+                        busy <= '1';
+                        sout <= '0';
+                        din_idx_clr <= '0';
+                        start_clr <= '0';
+                        state <= DATA_BIT;
+                    WHEN DATA_BIT =>
+                        busy <= '1';
+                        sout <= din_reg(din_idx);
+                        din_idx_clr <= '0';
+                        start_clr <= '0';
+                        IF (din_idx = 7) THEN
+                            din_idx_clr <= '1';
+                            state <= STOP_BIT;
+                        END IF;
+                    WHEN STOP_BIT =>
+                        busy <= '1';
+                        sout <= '1';
+                        start_clr <= '1';
+                        din_idx_clr <= '1';
+                        state <= IDLE;
+                    WHEN OTHERS =>
+                        state <= IDLE;
+                END CASE;
+            END IF;
         END IF;
-    END PROCESS;
+    END PROCESS UART_FSM;
 
-    UART_OUTPUT_PROC : PROCESS (state)
-    BEGIN
-        CASE state IS
-            WHEN IDLE =>
-                busy <= '0';
-                sout <= '1';
-            WHEN START_BIT =>
-                busy <= '1';
-                sout <= '0';
-            WHEN DATA_BIT =>
-                busy <= '1';
-                sout <= din_reg(din_idx);
-            WHEN STOP_BIT =>
-                busy <= '1';
-                sout <= '1';
-            WHEN OTHERS =>
-                busy <= '0';
-                sout <= '1';
-        END CASE;
-    END PROCESS;
 END Behavioral;

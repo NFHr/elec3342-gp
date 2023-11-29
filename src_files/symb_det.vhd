@@ -126,29 +126,29 @@ BEGIN
             WHEN ST_OUTPUT =>
                 symbol_valid <= '1';
                 CASE data_cycle IS
-                    WHEN 185 TO 512 =>
-                        symbol_out <= "1000";
-                    WHEN 165 TO 185 => -- 183
-                        symbol_out <= "0111";
-                    WHEN 134 TO 164 => -- 145
-                        symbol_out <= "0110";
-                    WHEN 110 TO 133 => -- 122
-                        symbol_out <= "0101";
-                    WHEN 90 TO 109 => -- 97
-                        symbol_out <= "0100";
-                    WHEN 76 TO 89 => -- 82
-                        symbol_out <= "0011";
-                    WHEN 62 TO 75 => -- 69
-                        symbol_out <= "0010";
-                    WHEN 51 TO 61 => -- 55
-                        symbol_out <= "0001";
-                    WHEN 0 TO 45 => -- 45
-                        symbol_out <= "0000";
+                    WHEN 165 TO 512 =>      -- 183
+                        symbol_out <= "0111"; -- 7
+                    WHEN 134 TO 164 =>      -- 146
+                        symbol_out <= "0110"; -- 6
+                    WHEN 110 TO 133 =>      -- 122
+                        symbol_out <= "0101"; -- 5
+                    WHEN 90 TO 109 =>       -- 97
+                        symbol_out <= "0100"; -- 4
+                    WHEN 76 TO 89 =>        -- 82
+                        symbol_out <= "0011"; -- 3
+                    WHEN 62 TO 75 =>        -- 68
+                        symbol_out <= "0010"; -- 2
+                    WHEN 51 TO 61 =>        -- 54
+                        symbol_out <= "0001"; -- 1
+                    WHEN 38 TO 50 =>        -- 46
+                        symbol_out <= "0000"; -- 0
+                    WHEN 0 TO 37 =>         -- 27
+                        symbol_out <= "1000"; -- 8
                     WHEN OTHERS =>
                         symbol_out <= "0000";
                 END CASE;
             WHEN OTHERS =>
-                symbol_out <= "000";
+                symbol_out <= "0000";
                 symbol_valid <= '0';
         END CASE;
     END PROCESS;

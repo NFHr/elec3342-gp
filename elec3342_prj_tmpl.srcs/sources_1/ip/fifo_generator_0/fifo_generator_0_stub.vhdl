@@ -1,11 +1,11 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
--- Date        : Tue Nov 28 19:35:00 2023
+-- Date        : Wed Nov 29 12:43:31 2023
 -- Host        : elec3342 running 64-bit Ubuntu 20.04.6 LTS
--- Command     : write_vhdl -force -mode synth_stub -rename_top fifo_generator_0 -prefix
---               fifo_generator_0_ fifo_generator_1_stub.vhdl
--- Design      : fifo_generator_1
+-- Command     : write_vhdl -force -mode synth_stub
+--               /media/sf_ELEC3342/HW4/elec3342_prj_tmpl.srcs/sources_1/ip/fifo_generator_0/fifo_generator_0_stub.vhdl
+-- Design      : fifo_generator_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a35tcpg236-1
 -- --------------------------------------------------------------------------------

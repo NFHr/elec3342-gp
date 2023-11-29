@@ -56,7 +56,7 @@ ARCHITECTURE Behavioral OF sys_top IS
                         clr : IN STD_LOGIC; -- input synchronized reset
                         adc_data : IN STD_LOGIC_VECTOR(11 DOWNTO 0); -- input 12-bit ADC data
                         symbol_valid : OUT STD_LOGIC;
-                        symbol_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0); -- output 3-bit detection symbol
+                        symbol_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0); -- output 4-bit detection symbol
 
                         det_state : OUT STD_LOGIC_VECTOR(4 DOWNTO 0)
                 );
@@ -195,8 +195,9 @@ BEGIN
                 END IF;
         END PROCESS;
 
-        DEBUG_SEG_PROC : PROCESS (symbol_out)
+        DEBUG_SEG_PROC : PROCESS (clk)
         BEGIN
+            if rising_edge(clk) then
                 CASE symbol_out IS
                         WHEN "0000" => debug_seg <= "1000000"; -- 0
                         WHEN "0001" => debug_seg <= "1001111"; -- 1
@@ -207,9 +208,9 @@ BEGIN
                         WHEN "0110" => debug_seg <= "0000010"; -- 6
                         WHEN "0111" => debug_seg <= "1111000"; -- 7
                         WHEN "1000" => debug_seg <= "0000000"; -- 8
-                        WHEN "1001" => debug_seg <= "0010000"; -- 9
                         WHEN OTHERS => debug_seg <= "1111111";
                 END CASE;
+             end if;
         END PROCESS;
 
 END Behavioral;

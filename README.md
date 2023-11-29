@@ -20,8 +20,8 @@ git checkout --force main
   * [x] mcdecoder
   * [x] myuart
   * [x] symb_dect
-* [ ] Milestone 3
-  * [ ] Expand the code book
+* [x] Milestone 3
+  * [x] Expand the code book
 
 ## Group Roles
 
@@ -39,14 +39,18 @@ You may add your group contributions as you wish.
 
 ### Milestone 2
 
-Unfortunately, the combined original code did not work as expected on FPGA board.
+#### Code improvements:
 
 * mcdecoder -- Long Liangmao
-* myuart -- Long Liangmao (referenced design from [here](https://www.hackster.io/alexey-sudbin/uart-interface-in-vhdl-for-basys3-board-eef170))
+* myuart -- Long Liangmao
 * symb_dect -- Zhang Xiangyu (tried many versions), Guo Bao and Long Liangmao (final version)
 
 * dpop -- Long Liangmao (unused in milestone 3)
 
 ### Milestone 3
 
-* to be determined
+#### Expand the code book
+
+* mcdecoder -- Guo Hao
+
+* symb_dect -- Long Liangmao

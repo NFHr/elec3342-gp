@@ -28,7 +28,7 @@ parser.add_argument(
 parser.add_argument(
     '--sym_rate', '-r', help='Symbol rate of decoder (default 16)', default=16)
 parser.add_argument(
-    '--info_str', '-s', help='Information which needs to be decoded (default ABCDEFGHIJKLMNOPQRSTUVWXYZ! .?0123456789())', default="ABCDEFGHIJKLMNOPQRSTUVWXYZ! .?0123456789()")
+    '--info_str', '-s', help='Information which needs to be decoded (default BP?3456789())', default="0123456789()")
 args = parser.parse_args()
 
 dic_table = {'A': ['2', '1'], 'B': ['1', '2'], 'C': ['3', '1'], 'D': ['1', '3'], 'E': ['4', '1'],
@@ -42,8 +42,8 @@ dic_table = {'A': ['2', '1'], 'B': ['1', '2'], 'C': ['3', '1'], 'D': ['1', '3'],
              '(': ['8', '2'], ')': ['8', '1']}
 
 # frequency (Hz)
-freq_table = {'0': 2093.00, '1': 1760.00, '2': 1396.91, '3': 1174.66,
-                '4': 987.77, '5': 783.99, '6': 659.25, '7': 523.25, '8': 4186.01}
+freq_table = {'8': 3520.00, '0': 2093.00, '1': 1760.00, '2': 1396.91, '3': 1174.66,
+                '4': 987.77, '5': 783.99, '6': 659.25, '7': 523.25}
 
 symbol_rate = args.sym_rate
 adc_samp_rate = int(args.adc_freq)

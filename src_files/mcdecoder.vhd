@@ -170,8 +170,6 @@ BEGIN
                     WHEN "10000101" => dout <= "00110100";--4
                     WHEN "10000110" => dout <= "00110101";--5
                     WHEN OTHERS => dvalid <= '0';
-
-                    WHEN OTHERS => dvalid <= '0';
                 END CASE;
             WHEN OTHERS =>
                 error <= '0';

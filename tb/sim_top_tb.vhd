@@ -33,7 +33,7 @@ ARCHITECTURE Behavioral OF sim_top_tb IS
 
         CONSTANT clkPeriod : TIME := 10 ns;
         CONSTANT ADC_WIDTH : INTEGER := 12;
-        CONSTANT SAMPLE_LEN : INTEGER := 168000;
+        CONSTANT SAMPLE_LEN : INTEGER := 96000;
 
         SIGNAL clk : STD_LOGIC;
         SIGNAL clr : STD_LOGIC;
