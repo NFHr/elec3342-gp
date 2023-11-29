@@ -3,7 +3,7 @@ USE ieee.std_logic_1164.ALL;
 
 ENTITY mcdecoder IS
     PORT (
-        din : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+        din : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
         valid : IN STD_LOGIC;
         clr : IN STD_LOGIC;
         clk : IN STD_LOGIC;
@@ -21,7 +21,7 @@ ARCHITECTURE rtl OF mcdecoder IS
 
     SIGNAL next_state, state : state_type := St_WAIT;
 
-    SIGNAL digits : STD_LOGIC_VECTOR(5 DOWNTO 0) := (OTHERS => '0');
+    SIGNAL din_reg : STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');
     SIGNAL index : STD_LOGIC_VECTOR(1 DOWNTO 0);
 
 BEGIN
@@ -38,11 +38,11 @@ BEGIN
     SYNC_NEXT_PROC : PROCESS (clr, clk)
     BEGIN
         IF (clr = '1') THEN
-            digits <= "000000";
+            din_reg <= "00000000";
             index <= "00";
         ELSIF rising_edge(clk) THEN
             IF valid = '1' THEN
-                digits <= digits(2 DOWNTO 0) & din;
+                din_reg <= din_reg(3 DOWNTO 0) & din;
                 CASE state IS
                     WHEN St_BOS_READY | St_DECODE_READY | St_EOS_READY =>
                         index <= "01";
@@ -55,12 +55,12 @@ BEGIN
         END IF;
     END PROCESS;
 
-    NEXT_STATE_PROC : PROCESS (state, digits)
+    NEXT_STATE_PROC : PROCESS (state, din_reg)
     BEGIN
         next_state <= state;
         CASE state IS
             WHEN St_WAIT =>
-                IF digits = "000111" THEN
+                IF din_reg = "00000111" THEN
                     next_state <= St_BOS_READY;
                 END IF;
             WHEN St_BOS_READY =>
@@ -69,7 +69,7 @@ BEGIN
                 END IF;
             WHEN St_BOS =>
                 IF index = "10" THEN
-                    IF digits = "000111" THEN
+                    IF din_reg = "00000111" THEN
                         next_state <= St_DECODE_READY;
                     ELSE
                         next_state <= St_WAIT;
@@ -81,7 +81,7 @@ BEGIN
                 END IF;
             WHEN St_DECODE =>
                 IF index = "10" THEN
-                    IF digits = "111000" THEN
+                    IF din_reg = "01110000" THEN
                         next_state <= St_EOS_READY;
                     ELSE
                         next_state <= St_VALID;
@@ -93,7 +93,7 @@ BEGIN
                 END IF;
             WHEN St_EOS =>
                 IF index = "10" THEN
-                    IF digits = "111000" THEN
+                    IF din_reg = "01110000" THEN
                         next_state <= St_WAIT;
                     ELSE
                         next_state <= St_ERROR;
@@ -118,42 +118,58 @@ BEGIN
             WHEN St_VALID =>
                 error <= '0';
                 dvalid <= '1';
-                CASE digits IS
-                    WHEN "001010" => dout <= "01000010";--B
-                    WHEN "001011" => dout <= "01000100";--D
-                    WHEN "001100" => dout <= "01001000";--H
-                    WHEN "001101" => dout <= "01001100";--L
-                    WHEN "001110" => dout <= "01010010";--R
+                CASE din_reg IS
+                    WHEN "00010010" => dout <= "01000010";--B
+                    WHEN "00010011" => dout <= "01000100";--D
+                    WHEN "00010100" => dout <= "01001000";--H
+                    WHEN "00010101" => dout <= "01001100";--L
+                    WHEN "00010110" => dout <= "01010010";--R
 
-                    WHEN "010001" => dout <= "01000001";--A
-                    WHEN "010011" => dout <= "01000111";--G
-                    WHEN "010100" => dout <= "01001011";--K
-                    WHEN "010101" => dout <= "01010001";--Q
-                    WHEN "010110" => dout <= "01010110";--V
+                    WHEN "00100001" => dout <= "01000001";--A
+                    WHEN "00100011" => dout <= "01000111";--G
+                    WHEN "00100100" => dout <= "01001011";--K
+                    WHEN "00100101" => dout <= "01010001";--Q
+                    WHEN "00100110" => dout <= "01010110";--V
 
-                    WHEN "011001" => dout <= "01000011";--C
-                    WHEN "011010" => dout <= "01000110";--F
-                    WHEN "011100" => dout <= "01010000";--P
-                    WHEN "011101" => dout <= "01010101";--U
-                    WHEN "011110" => dout <= "01011010";--Z
+                    WHEN "00110001" => dout <= "01000011";--C
+                    WHEN "00110010" => dout <= "01000110";--F
+                    WHEN "00110100" => dout <= "01010000";--P
+                    WHEN "00110101" => dout <= "01010101";--U
+                    WHEN "00110110" => dout <= "01011010";--Z
 
-                    WHEN "100001" => dout <= "01000101";--E
-                    WHEN "100010" => dout <= "01001010";--J
-                    WHEN "100011" => dout <= "01001111";--O
-                    WHEN "100101" => dout <= "01011001";--Y
-                    WHEN "100110" => dout <= "00101110";--. 
+                    WHEN "01000001" => dout <= "01000101";--E
+                    WHEN "01000010" => dout <= "01001010";--J
+                    WHEN "01000011" => dout <= "01001111";--O
+                    WHEN "01000101" => dout <= "01011001";--Y
+                    WHEN "01000110" => dout <= "00101110";--. 
 
-                    WHEN "101001" => dout <= "01001001";--I
-                    WHEN "101010" => dout <= "01001110";--N
-                    WHEN "101011" => dout <= "01010100";--T
-                    WHEN "101100" => dout <= "01011000";--X
-                    WHEN "101110" => dout <= "00111111";--?
+                    WHEN "01010001" => dout <= "01001001";--I
+                    WHEN "01010010" => dout <= "01001110";--N
+                    WHEN "01010011" => dout <= "01010100";--T
+                    WHEN "01010100" => dout <= "01011000";--X
+                    WHEN "01010110" => dout <= "00111111";--?
 
-                    WHEN "110001" => dout <= "01001101";--M
-                    WHEN "110010" => dout <= "01010011";--S
-                    WHEN "110011" => dout <= "01010111";--W
-                    WHEN "110100" => dout <= "00100001";--!
-                    WHEN "110101" => dout <= "00100000";--SPACE
+                    WHEN "01100001" => dout <= "01001101";--M
+                    WHEN "01100010" => dout <= "01010011";--S
+                    WHEN "01100011" => dout <= "01010111";--W
+                    WHEN "01100100" => dout <= "00100001";--!
+                    WHEN "01100101" => dout <= "00100000";--SPACE
+
+                        -- New mappings
+                    WHEN "00011000" => dout <= "00101000";--(
+                    WHEN "00101000" => dout <= "00101001";--)
+                    WHEN "00111000" => dout <= "00111001";--9
+                    WHEN "01001000" => dout <= "00111000";--8
+                    WHEN "01011000" => dout <= "00110111";--7
+                    WHEN "01101000" => dout <= "00110110";--6
+
+                    WHEN "10000001" => dout <= "00110000";--0
+                    WHEN "10000010" => dout <= "00110001";--1
+                    WHEN "10000011" => dout <= "00110010";--2
+                    WHEN "10000100" => dout <= "00110011";--3
+                    WHEN "10000101" => dout <= "00110100";--4
+                    WHEN "10000110" => dout <= "00110101";--5
+                    WHEN OTHERS => dvalid <= '0';
 
                     WHEN OTHERS => dvalid <= '0';
                 END CASE;

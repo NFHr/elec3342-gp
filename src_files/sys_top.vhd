@@ -56,7 +56,7 @@ ARCHITECTURE Behavioral OF sys_top IS
                         clr : IN STD_LOGIC; -- input synchronized reset
                         adc_data : IN STD_LOGIC_VECTOR(11 DOWNTO 0); -- input 12-bit ADC data
                         symbol_valid : OUT STD_LOGIC;
-                        symbol_out : OUT STD_LOGIC_VECTOR(2 DOWNTO 0); -- output 3-bit detection symbol
+                        symbol_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0); -- output 3-bit detection symbol
 
                         det_state : OUT STD_LOGIC_VECTOR(4 DOWNTO 0)
                 );
@@ -64,7 +64,7 @@ ARCHITECTURE Behavioral OF sys_top IS
 
         COMPONENT mcdecoder IS
                 PORT (
-                        din : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+                        din : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
                         valid : IN STD_LOGIC;
                         clr : IN STD_LOGIC;
                         clk : IN STD_LOGIC;
@@ -102,7 +102,7 @@ ARCHITECTURE Behavioral OF sys_top IS
         SIGNAL clk : STD_LOGIC;
         SIGNAL locked : STD_LOGIC;
         SIGNAL symbol_valid : STD_LOGIC;
-        SIGNAL symbol_out : STD_LOGIC_VECTOR(2 DOWNTO 0); -- output 3-bit detection symbol 
+        SIGNAL symbol_out : STD_LOGIC_VECTOR(3 DOWNTO 0); -- output 3-bit detection symbol 
         SIGNAL dout : STD_LOGIC_VECTOR(7 DOWNTO 0);
         SIGNAL dvalid : STD_LOGIC;
         SIGNAL error : STD_LOGIC;
@@ -198,14 +198,17 @@ BEGIN
         DEBUG_SEG_PROC : PROCESS (symbol_out)
         BEGIN
                 CASE symbol_out IS
-                        WHEN "000" => debug_seg <= "1000000"; -- 0
-                        WHEN "001" => debug_seg <= "1001111"; -- 1
-                        WHEN "010" => debug_seg <= "0100100"; -- 2
-                        WHEN "011" => debug_seg <= "0110000"; -- 3
-                        WHEN "100" => debug_seg <= "0011001"; -- 4
-                        WHEN "101" => debug_seg <= "0010010"; -- 5
-                        WHEN "110" => debug_seg <= "0000010"; -- 6
-                        WHEN "111" => debug_seg <= "1111000"; -- 7
+                        WHEN "0000" => debug_seg <= "1000000"; -- 0
+                        WHEN "0001" => debug_seg <= "1001111"; -- 1
+                        WHEN "0010" => debug_seg <= "0100100"; -- 2
+                        WHEN "0011" => debug_seg <= "0110000"; -- 3
+                        WHEN "0100" => debug_seg <= "0011001"; -- 4
+                        WHEN "0101" => debug_seg <= "0010010"; -- 5
+                        WHEN "0110" => debug_seg <= "0000010"; -- 6
+                        WHEN "0111" => debug_seg <= "1111000"; -- 7
+                        WHEN "1000" => debug_seg <= "0000000"; -- 8
+                        WHEN "1001" => debug_seg <= "0010000"; -- 9
+                        WHEN OTHERS => debug_seg <= "1111111";
                 END CASE;
         END PROCESS;
 

@@ -2,7 +2,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 ENTITY mcdecoder_stub IS
     PORT (
-        din : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+        din : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
         valid : IN STD_LOGIC;
         clr : IN STD_LOGIC;
         clk : IN STD_LOGIC;
@@ -26,7 +26,7 @@ BEGIN
         ELSIF rising_edge(clk) THEN
             IF (valid = '1') THEN
                 dvalid <= '1';
-                dout <= "00110" & din;
+                dout <= "0011" & din;
             ELSE
                 dvalid <= '0';
                 dout <= "00100000";

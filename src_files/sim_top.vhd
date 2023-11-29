@@ -47,12 +47,12 @@ ARCHITECTURE Behavioral OF sim_top IS
                         clr : IN STD_LOGIC; -- input synchronized reset
                         adc_data : IN STD_LOGIC_VECTOR(11 DOWNTO 0); -- input 12-bit ADC data
                         symbol_valid : OUT STD_LOGIC;
-                        symbol_out : OUT STD_LOGIC_VECTOR(2 DOWNTO 0));
+                        symbol_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0));
         END COMPONENT symb_det;
 
         COMPONENT mcdecoder IS
                 PORT (
-                        din : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+                        din : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
                         valid : IN STD_LOGIC;
                         clr : IN STD_LOGIC;
                         clk : IN STD_LOGIC;
@@ -85,7 +85,7 @@ ARCHITECTURE Behavioral OF sim_top IS
         END COMPONENT dpop;
 
         SIGNAL symbol_valid : STD_LOGIC;
-        SIGNAL symbol_out : STD_LOGIC_VECTOR(2 DOWNTO 0); -- output 3-bit detection symbol 
+        SIGNAL symbol_out : STD_LOGIC_VECTOR(3 DOWNTO 0); -- output 3-bit detection symbol 
         SIGNAL dout : STD_LOGIC_VECTOR(7 DOWNTO 0);
         SIGNAL dvalid : STD_LOGIC;
         SIGNAL error : STD_LOGIC;

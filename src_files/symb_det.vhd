@@ -9,7 +9,7 @@ ENTITY symb_det IS
         clr : IN STD_LOGIC; -- input synchronized reset
         adc_data : IN STD_LOGIC_VECTOR(11 DOWNTO 0); -- input 12-bit ADC data
         symbol_valid : OUT STD_LOGIC;
-        symbol_out : OUT STD_LOGIC_VECTOR(2 DOWNTO 0); -- output 3-bit detection symbol
+        symbol_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0); -- output 3-bit detection symbol
 
         det_state : OUT STD_LOGIC_VECTOR(4 DOWNTO 0)
     );
@@ -126,24 +126,26 @@ BEGIN
             WHEN ST_OUTPUT =>
                 symbol_valid <= '1';
                 CASE data_cycle IS
-                    WHEN 165 TO 512 => -- 183
-                        symbol_out <= "111";
+                    WHEN 185 TO 512 =>
+                        symbol_out <= "1000";
+                    WHEN 165 TO 185 => -- 183
+                        symbol_out <= "0111";
                     WHEN 134 TO 164 => -- 145
-                        symbol_out <= "110";
+                        symbol_out <= "0110";
                     WHEN 110 TO 133 => -- 122
-                        symbol_out <= "101";
+                        symbol_out <= "0101";
                     WHEN 90 TO 109 => -- 97
-                        symbol_out <= "100";
+                        symbol_out <= "0100";
                     WHEN 76 TO 89 => -- 82
-                        symbol_out <= "011";
+                        symbol_out <= "0011";
                     WHEN 62 TO 75 => -- 69
-                        symbol_out <= "010";
+                        symbol_out <= "0010";
                     WHEN 51 TO 61 => -- 55
-                        symbol_out <= "001";
+                        symbol_out <= "0001";
                     WHEN 0 TO 45 => -- 45
-                        symbol_out <= "000";
+                        symbol_out <= "0000";
                     WHEN OTHERS =>
-                        symbol_out <= "000";
+                        symbol_out <= "0000";
                 END CASE;
             WHEN OTHERS =>
                 symbol_out <= "000";

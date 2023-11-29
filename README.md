@@ -16,30 +16,36 @@ git checkout --force main
 ## Milestones
 
 * [x] Milestone 1: Full Music Code decoder simulation
-* [ ] Milestone 2
-  * [ ] mcdecoder
-  * [ ] myuart
-  * [ ] symb_dect
+* [x] Milestone 2: Implementation on FPGA
+  * [x] mcdecoder
+  * [x] myuart
+  * [x] symb_dect
 * [ ] Milestone 3
-  * [ ] to be determined
+  * [ ] Expand the code book
 
 ## Group Roles
 
-You may add your contributions as you wish.
-
-### Original Components
-
-* mcdecoder.vhd – Guo Hao, Long Liangmao
-* myuart.vhd – Guo Hao, refactored by Long Liangmao
-* symb_dect.vhd – Long Liangmao, Guo Bao
+You may add your group contributions as you wish.
 
 ### Milestone 1
 
-* mainly -- Guo Bao
+#### Original Code
+
+* mcdecoder.vhd – Guo Hao, Long Liangmao
+* myuart.vhd – Guo Hao
+* symb_dect.vhd – Long Liangmao, Guo Bao
+
+-> Integrating: Guo Bao
 
 ### Milestone 2
 
-* mainly -- everyone
+Unfortunately, the combined original code did not work as expected on FPGA board.
+
+* mcdecoder -- Long Liangmao
+* myuart -- Long Liangmao (referenced design from [here](https://www.hackster.io/alexey-sudbin/uart-interface-in-vhdl-for-basys3-board-eef170))
+* symb_dect -- Zhang Xiangyu (tried many versions), Guo Bao and Long Liangmao (final version)
+
+* dpop -- Long Liangmao (unused in milestone 3)
 
 ### Milestone 3
 
