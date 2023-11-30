@@ -22,35 +22,3 @@ git checkout --force main
   * [x] symb_dect
 * [x] Milestone 3
   * [x] Expand the code book
-
-## Group Roles
-
-You may add your group contributions as you wish.
-
-### Milestone 1
-
-#### Original Code
-
-* mcdecoder.vhd – Guo Hao, Long Liangmao
-* myuart.vhd – Guo Hao
-* symb_dect.vhd – Long Liangmao, Guo Bao
-
--> Integrating: Guo Bao
-
-### Milestone 2
-
-#### Code improvements:
-
-* mcdecoder -- Long Liangmao
-* myuart -- Long Liangmao
-* symb_dect -- Zhang Xiangyu (tried many versions), Guo Bao and Long Liangmao (final version)
-
-* dpop -- Long Liangmao (unused in milestone 3)
-
-### Milestone 3
-
-#### Expand the code book
-
-* mcdecoder -- Guo Hao
-
-* symb_dect -- Long Liangmao
