@@ -148,7 +148,6 @@ BEGIN
                         symbol_out <= "0000";
                 END CASE;
             WHEN OTHERS =>
-                symbol_out <= "0000";
                 symbol_valid <= '0';
         END CASE;
     END PROCESS;

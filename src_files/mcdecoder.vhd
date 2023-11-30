@@ -110,7 +110,6 @@ BEGIN
 
     OUTPUT_PROC : PROCESS (state)
     BEGIN
-        dout <= (OTHERS => '0');
         CASE state IS
             WHEN St_ERROR =>
                 error <= '1';

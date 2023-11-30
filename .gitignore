@@ -1,8 +1,6 @@
 *.jou
 *.str
 *.log
-*.wcfg
-*.xpr
 .Xil/
 elec3342_prj_tmpl.runs/
 elec3342_prj_tmpl.sim/
